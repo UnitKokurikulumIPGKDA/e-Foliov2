@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>E-Folio IPG Premium v14.0 (Multi-Pensyarah)</title>
+    <title>E-Folio IPG Premium v14.1</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icon Kit -->
@@ -15,11 +15,10 @@
     
     <style>
         :root {
-            --primary: #1e3a8a;
-            --primary-dark: #0f172a;
-            --accent: #3b82f6;
+            --primary: #0f172a;
+            --primary-blue: #1e3a8a;
+            --accent: #2563eb;
             --surface: #ffffff;
-            --bg-canvas: #090d16;
         }
 
         * {
@@ -30,60 +29,48 @@
 
         body {
             background-color: #f8fafc;
-            color: #1e293b;
+            color: #0f172a;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
 
-        /* Latar Belakang Moden Bertema */
         .bg-mesh-dark {
-            background-color: #0b1120;
+            background-color: #090d16;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.4) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.2) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.9) 0px, transparent 100%);
+                radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.45) 0px, transparent 55%),
+                radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.25) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.95) 0px, transparent 100%);
             background-attachment: fixed;
         }
 
-        /* Kad Kaca Berkualiti Tinggi */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.96);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(226, 232, 240, 0.9);
-            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.07), 0 0 1px 1px rgba(0, 0, 0, 0.02);
+            box-shadow: 0 20px 35px -10px rgba(15, 23, 42, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
         }
 
-        .glass-panel-dark {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Butang & Interaksi */
         .btn-interactive {
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .btn-interactive:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.08);
+            transform: translateY(-1.5px);
+            filter: brightness(1.06);
         }
         .btn-interactive:active {
             transform: translateY(0);
         }
 
-        /* Animasi */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in {
-            animation: fadeIn 0.35s ease-out forwards;
+            animation: fadeIn 0.3s ease-out forwards;
         }
 
-        /* Penyesuaian Jadual Responsif */
         .table-container {
             overflow-x: auto;
             scrollbar-width: thin;
@@ -97,7 +84,6 @@
             border-radius: 9999px;
         }
 
-        /* Scrollbar Halimunan */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -108,19 +94,16 @@
     <!-- 1. MODUL LOG MASUK (AUTHENTICATION)        -->
     <!-- ========================================== -->
     <div id="login-page" class="min-h-screen flex items-center justify-center p-4 bg-mesh-dark relative overflow-hidden">
-        <!-- Elemen Latar Belakang Bercahaya (Glow Orbs) -->
         <div class="absolute top-1/4 -left-20 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="max-w-md w-full glass-panel rounded-[2.5rem] shadow-2xl p-8 sm:p-10 relative z-10 border border-white/60 animate-fade-in">
-            <!-- Logo Rasmi IPG -->
             <div class="flex justify-center mb-6">
                 <div class="p-3 bg-slate-50 rounded-3xl border border-slate-100 shadow-inner">
                     <img src="https://imgur.com/HfCmzEY.png" alt="Logo IPG" class="w-24 h-24 object-contain">
                 </div>
             </div>
 
-            <!-- Tajuk Portal -->
             <div class="text-center mb-8">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-blue-700 text-[10px] font-black uppercase tracking-widest mb-2">
                     <i class="fas fa-shield-alt text-[9px]"></i> Portal Rasmi Pensyarah
@@ -131,31 +114,29 @@
                 <p class="text-xs text-slate-500 font-semibold mt-2">Sistem Folio Digital & Rekod Akademik Terpusat</p>
             </div>
 
-            <!-- Borang Pengesahan Diri -->
             <form id="login-form" class="space-y-4">
                 <div>
-                    <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Username / ID Emel</label>
+                    <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Username / ID Pengguna</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                            <i class="fas fa-envelope text-sm"></i>
+                            <i class="fas fa-user-circle text-sm"></i>
                         </span>
-                        <input type="text" id="username" required placeholder="cth: haniff.faizal@ipgm.edu.my" 
-                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50/80 border border-slate-200 rounded-2xl outline-none font-semibold text-xs text-slate-800 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all">
+                        <input type="text" id="username" required placeholder="cth: auditor atau haniff.faizal@ipgm.edu.my" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-semibold text-xs text-slate-800 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Kata Laluan / No. Kad Pengenalan</label>
+                    <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1.5 ml-1">Kata Laluan</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
                             <i class="fas fa-lock text-sm"></i>
                         </span>
-                        <input type="password" id="password" required placeholder="cth: 780106055301" 
-                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50/80 border border-slate-200 rounded-2xl outline-none font-semibold text-xs text-slate-800 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all">
+                        <input type="password" id="password" required placeholder="Kata laluan akaun anda" 
+                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-semibold text-xs text-slate-800 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all">
                     </div>
                 </div>
 
-                <!-- Notifikasi Ralat -->
                 <div id="login-error" class="hidden p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-600 text-xs font-bold text-center flex items-center justify-center gap-2">
                     <i class="fas fa-circle-exclamation"></i>
                     <span id="login-error-text">Maklumat log masuk tidak sah!</span>
@@ -178,27 +159,24 @@
     <!-- ========================================== -->
     <div id="dashboard-page" class="hidden min-h-screen flex flex-col bg-slate-50">
         
-        <!-- Bar Navigasi Atas (Top App Bar) -->
+        <!-- Top App Bar Navigation -->
         <nav class="bg-[#0b1120] text-white shadow-xl sticky top-0 z-50 px-4 md:px-8 py-3 border-b border-slate-800">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
                 
-                <!-- Identiti IPG Kampus -->
                 <div class="flex items-center gap-3 md:gap-4 w-full md:w-auto justify-between md:justify-start">
                     <div class="flex items-center gap-3">
                         <img src="https://imgur.com/xIwHCKd.png" alt="Logo IPG" class="w-12 h-12 md:w-14 md:h-14 object-contain">
                         <div class="flex flex-col">
                             <span class="text-lg md:text-xl font-black uppercase tracking-tight italic">IPG <span class="text-blue-400">PORTAL</span></span>
-                            <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">E-FOLIO DIGITAL v14.0</span>
+                            <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">E-FOLIO DIGITAL v14.1</span>
                         </div>
                     </div>
                     
-                    <!-- Butang Log Keluar Pantas (Mudah Alih) -->
                     <button onclick="logout()" class="md:hidden text-slate-400 hover:text-rose-400 p-2 text-base">
                         <i class="fas fa-power-off"></i>
                     </button>
                 </div>
 
-                <!-- Butang Tindakan Pantas Header -->
                 <div class="flex items-center gap-2 md:gap-3 w-full md:w-auto justify-end flex-wrap">
                     <button id="btn-manage-users" onclick="openUserModal()" class="hidden bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider btn-interactive flex items-center gap-1.5 shadow-md shadow-indigo-900/30">
                         <i class="fas fa-user-plus text-[10px]"></i>
@@ -222,7 +200,7 @@
             </div>
         </nav>
 
-        <!-- Navigasi Tab Kategori Fail (Pill Navigation) -->
+        <!-- Category Tabs -->
         <div class="bg-[#0e1626] border-b border-slate-800 sticky top-[68px] md:top-[74px] z-40 shadow-md">
             <div class="max-w-7xl mx-auto px-4 md:px-8 flex overflow-x-auto no-scrollbar gap-2 py-2.5">
                 <button onclick="switchTab('Data_Folio')" id="tab-p" class="whitespace-nowrap px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all">
@@ -237,12 +215,10 @@
             </div>
         </div>
 
-        <!-- Ruang Kandungan Utama (Main Workspace) -->
+        <!-- Main Workspace Body -->
         <main class="max-w-7xl mx-auto w-full p-4 md:p-8 flex-1 space-y-6">
 
-            <!-- Kad Profil Pensyarah (Executive Summary) -->
             <div class="glass-panel rounded-[2rem] p-6 md:p-8 shadow-sm border border-slate-200/80 flex flex-col md:flex-row items-center gap-6 md:gap-8 relative overflow-hidden">
-                <!-- Foto Pensyarah -->
                 <div class="relative flex-shrink-0">
                     <div class="w-28 h-36 md:w-32 md:h-40 bg-slate-100 rounded-2xl overflow-hidden border-4 border-white shadow-xl shadow-slate-200/80">
                         <img id="profile-photo" src="https://i.imgur.com/9uSlDpC.png" alt="Foto Profil" class="w-full h-full object-cover">
@@ -252,10 +228,9 @@
                     </span>
                 </div>
 
-                <!-- Butiran Maklumat Pensyarah -->
                 <div class="text-center md:text-left flex-1 space-y-2">
                     <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                        <span id="profile-badge" class="px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-[9px] font-black uppercase tracking-widest border border-blue-200/50">Profil Pensyarah</span>
+                        <span id="profile-badge" class="px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-[9px] font-black uppercase tracking-widest border border-blue-200/50">Profil Pengguna</span>
                         <span id="profile-user-id" class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold tracking-wider">ID: -</span>
                     </div>
                     <h2 id="profile-name" class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug uppercase">-</h2>
@@ -277,23 +252,19 @@
                 </div>
             </div>
 
-            <!-- Panel Penapis Data & Statistik Rekod -->
             <div class="glass-panel p-6 rounded-[2rem] shadow-sm border border-slate-200/80 flex flex-col md:flex-row items-stretch md:items-end justify-between gap-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 flex-1">
                     
-                    <!-- Penapis Pensyarah (Khas Admin) -->
                     <div id="lecturer-filter-container" class="space-y-1 hidden">
                         <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 ml-1">Pilih Pensyarah</label>
                         <select id="lecturer-filter" onchange="onLecturerFilterChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-bold text-xs text-slate-700 outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"></select>
                     </div>
 
-                    <!-- Penapis Sesi Tahun -->
                     <div class="space-y-1">
                         <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 ml-1">Sesi Tahun</label>
                         <select id="year-filter" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-bold text-xs text-slate-700 outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"></select>
                     </div>
 
-                    <!-- Penapis Semester (Hanya Kursus & Subjek) -->
                     <div id="sem-filter-container" class="space-y-1 hidden">
                         <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 ml-1">Semester</label>
                         <select id="sem-filter" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-bold text-xs text-slate-700 outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white">
@@ -304,36 +275,28 @@
                         </select>
                     </div>
 
-                    <!-- Penapis Kategori Fail -->
                     <div id="cat-filter-container" class="space-y-1">
                         <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 ml-1">Kategori Rekod</label>
                         <select id="category-filter" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-bold text-xs text-slate-700 outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"></select>
                     </div>
                 </div>
 
-                <!-- Kad Statistik Jumlah Rekod Aktif -->
                 <div class="bg-gradient-to-br from-slate-900 to-blue-950 px-6 py-3 rounded-2xl text-white text-center flex-shrink-0 flex md:flex-col justify-between items-center md:justify-center min-w-[120px]">
                     <span class="text-[9px] font-black uppercase tracking-widest text-slate-400">Jumlah Rekod</span>
                     <span id="stats-count" class="text-3xl font-black text-blue-400 leading-none">0</span>
                 </div>
             </div>
 
-            <!-- Jadual Paparan Rekod Folio -->
             <div class="glass-panel rounded-[2rem] shadow-sm border border-slate-200/80 overflow-hidden">
                 <div class="table-container">
                     <table class="w-full text-left border-collapse min-w-[650px]">
                         <thead class="bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest">
-                            <tr id="table-header">
-                                <!-- Lajur dinamik mengikut tab -->
-                            </tr>
+                            <tr id="table-header"></tr>
                         </thead>
-                        <tbody id="table-body" class="text-slate-700 text-xs font-semibold divide-y divide-slate-100">
-                            <!-- Baris data diisi oleh JavaScript -->
-                        </tbody>
+                        <tbody id="table-body" class="text-slate-700 text-xs font-semibold divide-y divide-slate-100"></tbody>
                     </table>
                 </div>
                 
-                <!-- Makluman Sekiranya Tiada Rekod -->
                 <div id="empty-msg" class="hidden py-16 px-4 text-center">
                     <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
                         <i class="fas fa-folder-open text-2xl"></i>
@@ -365,9 +328,7 @@
 
                 <form id="add-form" class="space-y-4">
                     <input type="hidden" id="edit-row-index">
-                    <div id="dynamic-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                        <!-- Medan borang dimasukkan secara dinamik -->
-                    </div>
+                    <div id="dynamic-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs"></div>
 
                     <div class="flex gap-3 pt-4 border-t border-slate-100 mt-6">
                         <button type="button" onclick="closeModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3.5 rounded-xl uppercase text-[10px] tracking-wider transition-all">Batal</button>
@@ -396,9 +357,7 @@
                     </button>
                 </div>
 
-                <div id="checklist-content" class="space-y-2.5 max-h-[55vh] overflow-y-auto pr-1">
-                    <!-- Senarai semak dijana di sini -->
-                </div>
+                <div id="checklist-content" class="space-y-2.5 max-h-[55vh] overflow-y-auto pr-1"></div>
 
                 <button onclick="closeChecklist()" class="w-full mt-6 bg-slate-900 text-white font-bold py-3.5 rounded-xl uppercase text-[10px] tracking-wider btn-interactive">
                     Tutup Paparan
@@ -418,7 +377,7 @@
                 <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
                     <div>
                         <h2 class="text-xl font-extrabold text-slate-900 uppercase">Daftar Pensyarah Baharu</h2>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Pentadbir sistem mendaftarkan kakitangan akademik</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Pentadbir mendaftarkan kakitangan akademik baharu</p>
                     </div>
                     <button onclick="closeUserModal()" class="w-9 h-9 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center">
                         <i class="fas fa-times"></i>
@@ -455,7 +414,7 @@
                             <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Peranan (Role)</label>
                             <select id="nu-role" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-slate-700">
                                 <option value="Pensyarah">Pensyarah Biasa</option>
-                                <option value="Admin">Pentadbir (Admin)</option>
+                                <option value="Admin">Pentadbir (Admin / Auditor)</option>
                             </select>
                         </div>
                         <div class="sm:col-span-2">
@@ -477,7 +436,7 @@
     <!-- 6. LOGIK APLIKASI JAVASCRIPT LENGKAP       -->
     <!-- ========================================== -->
     <script>
-        // URL Web App Google Apps Script Terkini (Sep 2026)
+        // URL Web App Google Apps Script Terkini
         const API_URL = "https://script.google.com/macros/s/AKfycbxpehf-tDk3hFCSZDzVdbYWVhhLh8V6z5wADmSqrMZSomEAz_ODSYjTgYFo2odmD5LAjQ/exec";
         
         let currentTab = 'Data_Folio';
@@ -500,7 +459,6 @@
             "TUGAS TAMBAHAN", "PERINCIAN ATP", "LAIN LAIN"
         ];
 
-        // Semakan sesi log masuk semasa halaman dimuat
         window.addEventListener('DOMContentLoaded', () => {
             const savedSession = localStorage.getItem('f_user');
             if (savedSession) {
@@ -513,9 +471,6 @@
             }
         });
 
-        // ------------------------------------------
-        // PENGENDALI LOG MASUK
-        // ------------------------------------------
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btn-login');
@@ -557,19 +512,16 @@
             }
         });
 
-        // ------------------------------------------
-        // PAPARAN PAPAN PEMUKA
-        // ------------------------------------------
         async function showDashboard() {
             document.getElementById('login-page').classList.add('hidden');
             document.getElementById('dashboard-page').classList.remove('hidden');
             renderProfile(currentUser);
 
-            const isAdmin = currentUser.Role === 'Admin';
-            document.getElementById('btn-manage-users').classList.toggle('hidden', !isAdmin);
-            document.getElementById('lecturer-filter-container').classList.toggle('hidden', !isAdmin);
+            const isPrivileged = currentUser.Role === 'Admin' || String(currentUser.Username).toLowerCase() === 'auditor';
+            document.getElementById('btn-manage-users').classList.toggle('hidden', !isPrivileged);
+            document.getElementById('lecturer-filter-container').classList.toggle('hidden', !isPrivileged);
 
-            if (isAdmin) {
+            if (isPrivileged) {
                 await loadLecturerList();
             }
             switchTab('Data_Folio');
@@ -580,19 +532,16 @@
             document.getElementById('profile-name').innerText = user.Nama_Penuh || user.Username;
             document.getElementById('profile-user-id').innerText = `ID: ${user.Username}`;
             document.getElementById('profile-gred').innerText = user.Gred || 'DG48 HAKIKI';
-            document.getElementById('profile-jabatan').innerText = user.Jabatan || '-';
+            document.getElementById('profile-jabatan').innerText = user.Jabatan || 'IPG KAMPUS DARULAMAN';
             document.getElementById('profile-nopekerja').innerText = user.No_Pekerja || '-';
             
-            const isAdmin = user.Role === 'Admin';
-            document.getElementById('profile-badge').innerText = isAdmin ? 'Profil Pentadbir (Admin)' : 'Profil Pensyarah';
-            document.getElementById('profile-badge').className = isAdmin 
+            const isPrivileged = user.Role === 'Admin' || String(user.Username).toLowerCase() === 'auditor';
+            document.getElementById('profile-badge').innerText = isPrivileged ? 'Profil Pentadbir / Auditor' : 'Profil Pensyarah';
+            document.getElementById('profile-badge').className = isPrivileged 
                 ? 'px-3 py-1 rounded-full bg-indigo-50 text-indigo-800 text-[9px] font-black uppercase tracking-widest border border-indigo-200/50'
                 : 'px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-[9px] font-black uppercase tracking-widest border border-blue-200/50';
         }
 
-        // ------------------------------------------
-        // SENARAI PENSYARAH (UNTUK PENTADBIR)
-        // ------------------------------------------
         async function loadLecturerList() {
             try {
                 const res = await fetch(`${API_URL}?sheet=LecturerList`);
@@ -616,9 +565,6 @@
             loadData();
         }
 
-        // ------------------------------------------
-        // PENUKARAN TAB & ANTARAMUKA
-        // ------------------------------------------
         function switchTab(tabName) {
             currentTab = tabName;
             
@@ -648,7 +594,8 @@
         function renderTableHeader() {
             const h = document.getElementById('table-header');
             const cell = "px-6 py-4";
-            let ownerCol = (currentUser.Role === 'Admin' && viewUser === 'Semua') ? `<th class="${cell}">Pemilik Rekod</th>` : '';
+            const isPrivileged = currentUser.Role === 'Admin' || String(currentUser.Username).toLowerCase() === 'auditor';
+            let ownerCol = (isPrivileged && viewUser === 'Semua') ? `<th class="${cell}">Pensyarah</th>` : '';
 
             if (currentTab === 'Subjek_Diajar') {
                 h.innerHTML = `<th class="${cell}">Tahun</th><th class="${cell}">Sem</th><th class="${cell}">Kod Subjek</th><th class="${cell}">Nama Kursus / Subjek</th><th class="${cell}">Kelas</th>${ownerCol}<th class="${cell} text-center">Tindakan</th>`;
@@ -659,16 +606,14 @@
             }
         }
 
-        // ------------------------------------------
-        // OPERASI DATA & PENAPISAN (GET)
-        // ------------------------------------------
         async function loadData() {
             const tbody = document.getElementById('table-body');
-            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-16 text-slate-400 font-bold uppercase tracking-widest text-[11px]"><i class="fas fa-spinner fa-spin mr-2 text-blue-600"></i> Memuatkan data daripada pelayan...</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-16 text-slate-400 font-bold uppercase tracking-widest text-[11px]"><i class="fas fa-spinner fa-spin mr-2 text-blue-600"></i> Menyegerak rekod dari Google Sheets...</td></tr>`;
             
             try {
                 let url = `${API_URL}?sheet=${currentTab}&username=${encodeURIComponent(currentUser.Username)}&role=${currentUser.Role}`;
-                if (currentUser.Role === 'Admin') {
+                const isPrivileged = currentUser.Role === 'Admin' || String(currentUser.Username).toLowerCase() === 'auditor';
+                if (isPrivileged) {
                     url += `&viewUser=${encodeURIComponent(viewUser)}`;
                 }
 
@@ -711,6 +656,7 @@
         }
 
         function getLecturerDisplayName(username) {
+            if (!username) return 'HANIFF FAIZAL';
             const found = lecturerList.find(x => x.Username.toLowerCase() === String(username).toLowerCase());
             return found ? found.Nama_Penuh : username;
         }
@@ -719,7 +665,8 @@
             document.getElementById('stats-count').innerText = records.length;
             const tbody = document.getElementById('table-body');
             const emptyMsg = document.getElementById('empty-msg');
-            const showOwner = (currentUser.Role === 'Admin' && viewUser === 'Semua');
+            const isPrivileged = currentUser.Role === 'Admin' || String(currentUser.Username).toLowerCase() === 'auditor';
+            const showOwner = isPrivileged && viewUser === 'Semua';
 
             if (records.length === 0) {
                 tbody.innerHTML = '';
@@ -739,21 +686,24 @@
                 if (currentTab === 'Subjek_Diajar') {
                     rowHtml += `<td class="${cellClass}"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 font-black text-[10px]">SEM ${item.Semester || '-'}</span></td>`;
                     rowHtml += `<td class="${cellClass} font-black text-indigo-600 tracking-wider">${item.Kod_Subjek || '-'}</td>`;
-                    rowHtml += `<td class="${cellClass} font-extrabold text-slate-800 uppercase">${item.Nama_Subjek || '-'}</td>`;
+                    rowHtml += `<td class="${cellClass} font-extrabold text-slate-800 uppercase">${item.Nama_Subjek || item.Nama || '-'}</td>`;
                     rowHtml += `<td class="${cellClass} font-bold text-slate-500">${item.Kelas || '-'}</td>`;
                 } else {
                     if (currentTab === 'Folio_Kursus') {
                         rowHtml += `<td class="${cellClass}"><span class="px-2 py-0.5 rounded bg-blue-50 text-blue-600 font-black text-[10px]">SEM ${item.Semester || '-'}</span></td>`;
                     }
                     rowHtml += `<td class="${cellClass}"><span class="inline-block px-2.5 py-1 rounded-md bg-indigo-50 border border-indigo-100 text-indigo-600 text-[9px] font-black uppercase tracking-wider">${item.Kategori || '-'}</span></td>`;
-                    rowHtml += `<td class="${cellClass} font-extrabold text-slate-800 uppercase">${currentTab === 'Folio_Kursus' ? (item.Nama_Kursus || '-') : (item.Nama || '-')}</td>`;
+                    
+                    // Ambil Keterangan jika ada, atau Nama dokumen
+                    const documentTitle = item.Keterangan || item.Nama || item.Nama_Kursus || '-';
+                    rowHtml += `<td class="${cellClass} font-extrabold text-slate-800 uppercase">${documentTitle}</td>`;
                 }
 
                 if (showOwner) {
-                    rowHtml += `<td class="${cellClass} font-bold text-slate-500 text-[11px] uppercase">${getLecturerDisplayName(item.Username)}</td>`;
+                    const ownerName = item.Username ? getLecturerDisplayName(item.Username) : (item.Nama || 'HANIFF FAIZAL');
+                    rowHtml += `<td class="${cellClass} font-bold text-slate-500 text-[11px] uppercase">${ownerName}</td>`;
                 }
 
-                // Butang Tindakan (Tengok, Muat Turun, Sunting, Padam)
                 rowHtml += `<td class="${cellClass} text-center">
                     <div class="flex items-center justify-center gap-2">
                         ${item.Pautan ? `<a href="${item.Pautan}" target="_blank" class="w-8 h-8 rounded-lg bg-blue-50 hover:bg-blue-600 text-blue-600 hover:text-white flex items-center justify-center transition-all" title="Buka Pautan Fail"><i class="fas fa-arrow-up-right-from-square text-xs"></i></a>` : ''}
@@ -767,9 +717,6 @@
             }).join('');
         }
 
-        // ------------------------------------------
-        // MODAL TAMBAH & SUNTING REKOD
-        // ------------------------------------------
         function openModal(mode, item = null) {
             document.getElementById('modal-add').classList.remove('hidden');
             const fields = document.getElementById('dynamic-fields');
@@ -799,7 +746,7 @@
                     </div>
                     <div>
                         <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Nama Subjek / Kursus</label>
-                        <input type="text" id="f-subjek" required placeholder="cth: Pengurusan Bilik Darjah" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800 uppercase" value="${item ? (item.Nama_Subjek || '') : ''}">
+                        <input type="text" id="f-subjek" required placeholder="cth: Pengurusan Bilik Darjah" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800 uppercase" value="${item ? (item.Nama_Subjek || item.Nama || '') : ''}">
                     </div>
                     <div>
                         <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Kelas / Kumpulan</label>
@@ -834,15 +781,15 @@
                     </div>
                     <div class="sm:col-span-2">
                         <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Tajuk / Nama Dokumen</label>
-                        <input type="text" id="f-nama" required placeholder="cth: Rancangan Pengajaran Semester" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800 uppercase" value="${item ? (item.Nama || item.Nama_Kursus || '') : ''}">
+                        <input type="text" id="f-nama" required placeholder="cth: Rancangan Pengajaran Semester" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800 uppercase" value="${item ? (item.Nama || item.Nama_Kursus || item.Keterangan || '') : ''}">
                     </div>
                     <div class="sm:col-span-2">
                         <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">URL Pautan Google Drive (Wajib)</label>
                         <input type="url" id="f-pautan" required placeholder="https://drive.google.com/file/d/..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800" value="${item ? (item.Pautan || '') : ''}">
                     </div>
                     <div class="sm:col-span-2">
-                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Catatan Ringkas (Pilihan)</label>
-                        <textarea id="f-keterangan" rows="2" placeholder="Catatan tambahan berkenaan fail ini..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800">${item ? (item.Keterangan || '') : ''}</textarea>
+                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Catatan / Keterangan (Pilihan)</label>
+                        <textarea id="f-keterangan" rows="2" placeholder="Catatan tambahan berkenaan fail ini..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800">${item ? (item.Keterangan || item.Komen || '') : ''}</textarea>
                     </div>
                 `;
             }
@@ -905,6 +852,7 @@
                 if (result.result === "success") {
                     closeModal();
                     loadData();
+                    showCustomToast("Rekod berjaya disimpan!", "success");
                 } else {
                     showCustomToast(result.message || "Gagal menyimpan rekod.", "error");
                 }
@@ -916,9 +864,6 @@
             btn.disabled = false;
         });
 
-        // ------------------------------------------
-        // OPERASI PADAM REKOD
-        // ------------------------------------------
         async function deleteRecord(rowIndex) {
             try {
                 const res = await fetch(API_URL, {
@@ -935,6 +880,7 @@
                 
                 if (result.result === "success") {
                     loadData();
+                    showCustomToast("Rekod telah dipadam.", "info");
                 } else {
                     showCustomToast(result.message || "Gagal memadam rekod.", "error");
                 }
@@ -943,9 +889,6 @@
             }
         }
 
-        // ------------------------------------------
-        // AUDIT & SEMAKAN DOKUMEN FOLIO
-        // ------------------------------------------
         function showChecklist() {
             const currentYear = document.getElementById('year-filter').value;
             const currentSem = document.getElementById('sem-filter').value;
@@ -978,9 +921,6 @@
             document.getElementById('modal-checklist').classList.remove('hidden');
         }
 
-        // ------------------------------------------
-        // PENDAFTARAN PENSYARAH (ADMIN SAHAJA)
-        // ------------------------------------------
         function openUserModal() {
             document.getElementById('user-form').reset();
             document.getElementById('modal-users').classList.remove('hidden');
@@ -1027,9 +967,6 @@
             btn.disabled = false;
         });
 
-        // ------------------------------------------
-        // FUNGSI UTILITI
-        // ------------------------------------------
         function closeModal() { document.getElementById('modal-add').classList.add('hidden'); }
         function closeChecklist() { document.getElementById('modal-checklist').classList.add('hidden'); }
         function closeUserModal() { document.getElementById('modal-users').classList.add('hidden'); }
