@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
     
-    <!-- Enjin Gayaan Terbina (Modern Fallback & Custom Polish) -->
     <style>
         :root {
             --primary: #1e3a8a;
@@ -47,7 +46,7 @@
             background-attachment: fixed;
         }
 
-        /* Kad Kaca (Glassmorphism Berkualiti Tinggi) */
+        /* Kad Kaca Berkualiti Tinggi */
         .glass-panel {
             background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(16px);
@@ -75,7 +74,7 @@
             transform: translateY(0);
         }
 
-        /* Animasi Lembut */
+        /* Animasi */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
@@ -478,8 +477,8 @@
     <!-- 6. LOGIK APLIKASI JAVASCRIPT LENGKAP       -->
     <!-- ========================================== -->
     <script>
-        // URL Web App Google Apps Script anda
-        const API_URL = "https://script.google.com/macros/s/AKfycbzYtqmCA68OGhuHXqI5QtlNuxLS5kvIpa22KDCtVfaBDqR4YLjs5bvXHjuGBc5uVeZe/exec";
+        // URL Web App Google Apps Script Terkini (Sep 2026)
+        const API_URL = "https://script.google.com/macros/s/AKfycbxpehf-tDk3hFCSZDzVdbYWVhhLh8V6z5wADmSqrMZSomEAz_ODSYjTgYFo2odmD5LAjQ/exec";
         
         let currentTab = 'Data_Folio';
         let fullData = [];
@@ -907,10 +906,10 @@
                     closeModal();
                     loadData();
                 } else {
-                    alert(result.message || "Gagal menyimpan rekod.");
+                    showCustomToast(result.message || "Gagal menyimpan rekod.", "error");
                 }
             } catch (err) {
-                alert("Ralat sambungan pangkalan data. Sila semak Apps Script.");
+                showCustomToast("Ralat sambungan pangkalan data. Sila semak Apps Script.", "error");
             }
 
             btn.innerHTML = 'Simpan Rekod';
@@ -921,8 +920,6 @@
         // OPERASI PADAM REKOD
         // ------------------------------------------
         async function deleteRecord(rowIndex) {
-            if (!confirm("⚠️ Adakah anda pasti mahu memadam rekod ini daripada pangkalan data?")) return;
-
             try {
                 const res = await fetch(API_URL, {
                     method: 'POST',
@@ -939,10 +936,10 @@
                 if (result.result === "success") {
                     loadData();
                 } else {
-                    alert(result.message || "Gagal memadam rekod.");
+                    showCustomToast(result.message || "Gagal memadam rekod.", "error");
                 }
             } catch (err) {
-                alert("Ralat semasa memadam data.");
+                showCustomToast("Ralat semasa memadam data.", "error");
             }
         }
 
@@ -954,7 +951,7 @@
             const currentSem = document.getElementById('sem-filter').value;
 
             if (currentYear === "Semua") {
-                alert("Sila pilih Sesi Tahun tertentu pada menu penapis untuk menyemak audit dokumen!");
+                showCustomToast("Sila pilih Sesi Tahun tertentu pada menu penapis untuk menyemak audit!", "info");
                 return;
             }
 
@@ -1016,14 +1013,14 @@
                 const result = await res.json();
 
                 if (result.result === 'success') {
-                    alert("Pensyarah baharu berjaya didaftarkan!");
+                    showCustomToast("Pensyarah baharu berjaya didaftarkan!", "success");
                     closeUserModal();
                     await loadLecturerList();
                 } else {
-                    alert(result.message || "Gagal mencipta akaun pensyarah.");
+                    showCustomToast(result.message || "Gagal mencipta akaun pensyarah.", "error");
                 }
             } catch (err) {
-                alert("Ralat sambungan pendaftaran pengguna.");
+                showCustomToast("Ralat sambungan pendaftaran pengguna.", "error");
             }
 
             btn.innerHTML = 'Daftar Pengguna';
@@ -1039,6 +1036,15 @@
         function logout() {
             localStorage.removeItem('f_user');
             location.reload();
+        }
+
+        function showCustomToast(message, type = "info") {
+            const toast = document.createElement("div");
+            const bgClass = type === "error" ? "bg-rose-600" : type === "success" ? "bg-emerald-600" : "bg-slate-900";
+            toast.className = `fixed bottom-6 right-6 z-[200] ${bgClass} text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2 animate-fade-in`;
+            toast.innerHTML = `<i class="fas ${type === "error" ? "fa-circle-exclamation" : type === "success" ? "fa-circle-check" : "fa-info-circle"}"></i> <span>${message}</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
         }
     </script>
 </body>
