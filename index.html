@@ -3,26 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>E-Folio IPG Premium v15.0 (Google Auth)</title>
+    <title>E-Folio IPG Premium v15.0 - Pengurusan Folio Digital</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icon Kit -->
+    <!-- Font Awesome Kit -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Identity Services (Sign in with Google) -->
+    <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        :root {
-            --primary: #0f172a;
-            --primary-blue: #1e3a8a;
-            --accent: #2563eb;
-            --surface: #ffffff;
-        }
-
         * {
             box-sizing: border-box;
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -38,7 +31,7 @@
         }
 
         .bg-mesh-dark {
-            background-color: #090d16;
+            background-color: #070d19;
             background-image: 
                 radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.45) 0px, transparent 55%),
                 radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.25) 0px, transparent 50%),
@@ -93,89 +86,124 @@
 <body class="min-h-screen">
 
     <!-- ========================================== -->
-    <!-- 1. MODUL LOG MASUK DENGAN GOOGLE           -->
+    <!-- 1. MODUL LOG MASUK & PENDAFTARAN KENDIRI   -->
     <!-- ========================================== -->
     <div id="login-page" class="min-h-screen flex items-center justify-center p-4 bg-mesh-dark relative overflow-hidden">
         <div class="absolute top-1/4 -left-20 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div class="max-w-md w-full glass-panel rounded-[2.5rem] shadow-2xl p-8 sm:p-10 relative z-10 border border-white/60 animate-fade-in text-center">
-            <div class="flex justify-center mb-5">
-                <div class="p-3 bg-slate-50 rounded-3xl border border-slate-100 shadow-inner">
-                    <img src="https://imgur.com/HfCmzEY.png" alt="Logo IPG" class="w-24 h-24 object-contain">
+        <div class="max-w-md w-full glass-panel rounded-[2.5rem] shadow-2xl p-6 sm:p-8 relative z-10 border border-white/60 animate-fade-in text-center">
+            
+            <!-- Logo Header -->
+            <div class="flex justify-center mb-4">
+                <div class="p-2.5 bg-slate-50 rounded-3xl border border-slate-100 shadow-inner">
+                    <img src="https://imgur.com/HfCmzEY.png" alt="Logo IPG" class="w-20 h-20 object-contain">
                 </div>
             </div>
 
-            <div class="mb-6">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-blue-700 text-[10px] font-black uppercase tracking-widest mb-2">
-                    <i class="fab fa-google text-blue-600"></i> Log Masuk Google Terpusat
+            <div class="mb-5">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-blue-700 text-[10px] font-black uppercase tracking-widest mb-1.5">
+                    <i class="fab fa-google text-blue-600"></i> Sistem E-Folio IPG
                 </span>
-                <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none uppercase italic">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none uppercase italic">
                     E-FOLIO <span class="text-blue-600">IPG</span>
                 </h1>
-                <p class="text-xs text-slate-500 font-semibold mt-2">Sistem Folio Digital & Rekod Akademik Terpusat</p>
+                <p class="text-[11px] text-slate-500 font-semibold mt-1">Sistem Folio Digital & Rekod Akademik Terpusat</p>
             </div>
 
-            <!-- Google Official Button Container -->
-            <div class="space-y-4">
-                <div class="bg-slate-50/80 p-4 rounded-2xl border border-slate-200/80 text-left">
-                    <p class="text-[11px] text-slate-600 font-bold mb-3 text-center">
-                        <i class="fas fa-id-badge text-blue-600 mr-1"></i> Log masuk menggunakan akaun rasmi Google anda. Pendaftaran akaun baharu dilakukan secara automatik!
+            <!-- Tab Switcher: Log Masuk vs Daftar Baharu -->
+            <div class="flex bg-slate-100 p-1 rounded-2xl mb-5 border border-slate-200">
+                <button type="button" id="tab-btn-signin" onclick="switchAuthMode('signin')" class="flex-1 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-white text-blue-900 shadow-sm transition-all">
+                    <i class="fas fa-right-to-bracket mr-1"></i> Log Masuk
+                </button>
+                <button type="button" id="tab-btn-signup" onclick="switchAuthMode('signup')" class="flex-1 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 hover:text-slate-800 transition-all">
+                    <i class="fas fa-user-plus mr-1"></i> Daftar Baharu
+                </button>
+            </div>
+
+            <!-- VIEW A: LOG MASUK PANTAS / GOOGLE -->
+            <div id="auth-signin-view" class="space-y-4">
+                <div class="bg-slate-50/90 p-4 rounded-2xl border border-slate-200 text-left">
+                    <div class="flex items-center gap-2 mb-2 justify-center text-blue-800">
+                        <i class="fab fa-google text-lg text-blue-600"></i>
+                        <span class="text-xs font-black uppercase tracking-wider">Log Masuk Akaun Google IPGM / KPM</span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 font-semibold text-center mb-3">
+                        Gunakan emel rasmi Google anda (cth: <span class="font-bold text-slate-700">@moe-dl.edu.my</span> atau <span class="font-bold text-slate-700">@ipgm.edu.my</span>). Tiada kata laluan diperlukan.
                     </p>
 
-                    <!-- Google One Tap / Button Placeholder -->
-                    <div id="google-btn-wrapper" class="flex justify-center my-2">
-                        <div id="g_id_onload"
-                             data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
-                             data-context="signin"
-                             data-ux_mode="popup"
-                             data-callback="onGoogleCredentialResponse"
-                             data-auto_prompt="false">
+                    <!-- Fast Direct Email Login -->
+                    <form id="direct-email-form" class="space-y-3">
+                        <div class="text-left">
+                            <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1 ml-1">Alamat Emel Google Anda</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-blue-600">
+                                    <i class="fas fa-envelope text-sm"></i>
+                                </span>
+                                <input type="email" id="google-email-input" required placeholder="cth: ipgm-3679@moe-dl.edu.my" 
+                                    class="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-2xl outline-none font-bold text-xs text-slate-800 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all shadow-sm">
+                            </div>
                         </div>
-                        <div class="g_id_signin"
-                             data-type="standard"
-                             data-shape="pill"
-                             data-theme="outline"
-                             data-text="signin_with"
-                             data-size="large"
-                             data-logo_alignment="left"
-                             data-width="280">
-                        </div>
-                    </div>
+
+                        <button type="submit" id="btn-direct-login" class="w-full bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 hover:from-blue-800 hover:to-indigo-800 text-white font-extrabold py-3.5 rounded-2xl shadow-xl shadow-blue-900/25 uppercase text-[11px] tracking-widest btn-interactive flex items-center justify-center gap-2">
+                            <i class="fab fa-google"></i>
+                            <span>Masuk Dengan Akaun Google</span>
+                            <i class="fas fa-arrow-right text-xs ml-1"></i>
+                        </button>
+                    </form>
                 </div>
 
-                <div class="relative flex py-1 items-center">
-                    <div class="flex-grow border-t border-slate-200"></div>
-                    <span class="flex-shrink mx-3 text-[10px] font-black uppercase tracking-wider text-slate-400">Atau Akses Pantas Emel</span>
-                    <div class="flex-grow border-t border-slate-200"></div>
-                </div>
-
-                <!-- Fast Direct Email Login (Passwordless) -->
-                <form id="direct-email-form" class="space-y-3">
-                    <div class="text-left">
-                        <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1 ml-1">Emel Google Pensyarah / IPGM</label>
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
-                                <i class="fas fa-envelope text-sm"></i>
-                            </span>
-                            <input type="email" id="google-email-input" required placeholder="cth: haniff.faizal@ipgm.edu.my" 
-                                class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-semibold text-xs text-slate-800 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all">
-                        </div>
-                    </div>
-
-                    <button type="submit" id="btn-direct-login" class="w-full bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 hover:from-blue-800 hover:to-indigo-800 text-white font-extrabold py-3.5 rounded-2xl shadow-xl shadow-blue-900/25 uppercase text-[11px] tracking-widest btn-interactive flex items-center justify-center gap-2">
-                        <span>Teruskan Tanpa Kata Laluan</span>
-                        <i class="fas fa-arrow-right text-xs"></i>
-                    </button>
-                </form>
-
-                <div id="login-error" class="hidden p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-600 text-xs font-bold text-center flex items-center justify-center gap-2">
-                    <i class="fas fa-circle-exclamation"></i>
-                    <span id="login-error-text">Maklumat tidak sah!</span>
+                <div class="text-center">
+                    <span class="text-[10px] text-slate-400 font-bold">
+                        Pengguna kali pertama? Profil anda akan didaftarkan secara automatik.
+                    </span>
                 </div>
             </div>
 
-            <div class="mt-6 pt-5 border-t border-slate-100 text-center">
+            <!-- VIEW B: BORANG DAFTAR PENGGUNA BAHARU -->
+            <div id="auth-signup-view" class="hidden space-y-3 text-left">
+                <p class="text-[11px] text-slate-600 font-semibold bg-blue-50/70 p-2.5 rounded-xl border border-blue-200/50 text-center">
+                    <i class="fas fa-id-card text-blue-600 mr-1"></i> Isi butiran peribadi untuk pendaftaran akaun kali pertama:
+                </p>
+
+                <form id="self-register-form" class="space-y-2.5 text-xs">
+                    <div>
+                        <label class="block text-[10px] font-black uppercase text-slate-500 mb-0.5">Nama Penuh</label>
+                        <input type="text" id="reg-nama" required placeholder="cth: DR. AHMAD BIN ISMAIL" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold uppercase text-slate-800 focus:bg-white focus:border-blue-600">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black uppercase text-slate-500 mb-0.5">Alamat Emel Google</label>
+                        <input type="email" id="reg-email" required placeholder="cth: ahmad@ipgm.edu.my" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800 focus:bg-white focus:border-blue-600">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-slate-500 mb-0.5">No. Pekerja</label>
+                            <input type="text" id="reg-nopekerja" placeholder="cth: 07/12/34" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800 focus:bg-white focus:border-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-slate-500 mb-0.5">Gred Perkhidmatan</label>
+                            <input type="text" id="reg-gred" placeholder="cth: DG48" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold uppercase text-slate-800 focus:bg-white focus:border-blue-600">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black uppercase text-slate-500 mb-0.5">Unit / Jabatan</label>
+                        <input type="text" id="reg-jabatan" placeholder="cth: JABATAN ILMU PENDIDIKAN" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold uppercase text-slate-800 focus:bg-white focus:border-blue-600">
+                    </div>
+
+                    <button type="submit" id="btn-self-register" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold py-3.5 rounded-2xl shadow-xl shadow-emerald-900/25 uppercase text-[11px] tracking-widest btn-interactive flex items-center justify-center gap-2">
+                        <i class="fas fa-check"></i>
+                        <span>Daftar & Masuk ke Sistem</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Error Notification Banner -->
+            <div id="login-error" class="hidden mt-3 p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-600 text-xs font-bold text-center flex items-center justify-center gap-2">
+                <i class="fas fa-circle-exclamation"></i>
+                <span id="login-error-text">Maklumat tidak sah!</span>
+            </div>
+
+            <div class="mt-5 pt-4 border-t border-slate-100 text-center">
                 <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Institut Pendidikan Guru Kampus Darulaman</p>
             </div>
         </div>
@@ -199,13 +227,14 @@
                         </div>
                     </div>
                     
-                    <button onclick="logout()" class="md:hidden text-slate-400 hover:text-rose-400 p-2 text-base">
+                    <button onclick="logout()" class="md:hidden text-slate-400 hover:text-rose-400 p-2 text-base" title="Log Keluar">
                         <i class="fas fa-power-off"></i>
                     </button>
                 </div>
 
                 <div class="flex items-center gap-2 md:gap-3 w-full md:w-auto justify-end flex-wrap">
-                    <button onclick="openProfileModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3.5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider btn-interactive flex items-center gap-1.5 border border-slate-700">
+                    <!-- Prominent Edit Profile Button -->
+                    <button onclick="openProfileModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider btn-interactive flex items-center gap-1.5 shadow-md shadow-blue-900/30">
                         <i class="fas fa-user-pen text-xs"></i>
                         <span>Kemaskini Profil</span>
                     </button>
@@ -220,7 +249,7 @@
                         <span>Audit Folio</span>
                     </button>
                     
-                    <button onclick="openModal('add')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider btn-interactive flex items-center gap-1.5 shadow-lg shadow-blue-600/30">
+                    <button onclick="openModal('add')" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider btn-interactive flex items-center gap-1.5 border border-slate-700">
                         <i class="fas fa-plus text-xs"></i>
                         <span>Tambah Rekod</span>
                     </button>
@@ -250,12 +279,13 @@
         <!-- Main Workspace Body -->
         <main class="max-w-7xl mx-auto w-full p-4 md:p-8 flex-1 space-y-6">
 
+            <!-- Profile Overview Card -->
             <div class="glass-panel rounded-[2rem] p-6 md:p-8 shadow-sm border border-slate-200/80 flex flex-col md:flex-row items-center gap-6 md:gap-8 relative overflow-hidden">
-                <div class="relative flex-shrink-0">
+                <div class="relative flex-shrink-0 group">
                     <div class="w-28 h-36 md:w-32 md:h-40 bg-slate-100 rounded-2xl overflow-hidden border-4 border-white shadow-xl shadow-slate-200/80">
                         <img id="profile-photo" src="https://i.imgur.com/9uSlDpC.png" alt="Foto Profil" class="w-full h-full object-cover">
                     </div>
-                    <button onclick="openProfileModal()" title="Tukar Foto / Maklumat" class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-blue-900 text-white flex items-center justify-center border-2 border-white shadow-md text-xs hover:scale-110 transition-transform">
+                    <button onclick="openProfileModal()" title="Klik untuk Kemaskini Foto / Profil" class="absolute -bottom-2 -right-2 w-9 h-9 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center border-2 border-white shadow-lg text-xs hover:scale-110 transition-transform">
                         <i class="fas fa-pencil"></i>
                     </button>
                 </div>
@@ -264,6 +294,9 @@
                     <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
                         <span id="profile-badge" class="px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-[9px] font-black uppercase tracking-widest border border-blue-200/50">Profil Pengguna</span>
                         <span id="profile-user-id" class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold tracking-wider">ID: -</span>
+                        <button onclick="openProfileModal()" class="text-blue-600 hover:text-blue-800 text-[10px] font-extrabold uppercase ml-1 flex items-center gap-1">
+                            <i class="fas fa-edit"></i> Ubah
+                        </button>
                     </div>
                     <h2 id="profile-name" class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug uppercase">-</h2>
                     
@@ -284,11 +317,12 @@
                 </div>
             </div>
 
+            <!-- Filters & Data Control Bar -->
             <div class="glass-panel p-6 rounded-[2rem] shadow-sm border border-slate-200/80 flex flex-col md:flex-row items-stretch md:items-end justify-between gap-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 flex-1">
                     
                     <div id="lecturer-filter-container" class="space-y-1 hidden">
-                        <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 ml-1">Pilih Pensyarah</label>
+                        <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 ml-1">Pilih Pensyarah (Admin)</label>
                         <select id="lecturer-filter" onchange="onLecturerFilterChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-bold text-xs text-slate-700 outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"></select>
                     </div>
 
@@ -319,6 +353,7 @@
                 </div>
             </div>
 
+            <!-- Data Table Container -->
             <div class="glass-panel rounded-[2rem] shadow-sm border border-slate-200/80 overflow-hidden">
                 <div class="table-container">
                     <table class="w-full text-left border-collapse min-w-[650px]">
@@ -341,7 +376,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- 5. MODAL KEMASKINI PROFIL KENDIRI          -->
+    <!-- 3. MODAL KEMASKINI PROFIL PENSYARAH        -->
     <!-- ========================================== -->
     <div id="modal-edit-profile" class="fixed inset-0 z-[100] hidden overflow-y-auto">
         <div class="flex items-center justify-center min-h-screen px-4 py-8">
@@ -350,12 +385,17 @@
                 
                 <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
                     <div>
-                        <h2 class="text-xl font-extrabold text-slate-900 uppercase">Kemaskini Maklumat Profil</h2>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Lengkapkan rekod perkhidmatan akademik anda</p>
+                        <h2 class="text-xl font-extrabold text-slate-900 uppercase">Kemaskini Profil Pensyarah</h2>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Lengkapkan dan kemaskini maklumat perkhidmatan anda</p>
                     </div>
                     <button onclick="closeProfileModal()" class="w-9 h-9 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center">
                         <i class="fas fa-times"></i>
                     </button>
+                </div>
+
+                <div id="profile-welcome-banner" class="hidden p-3 bg-blue-50 border border-blue-200 rounded-2xl mb-3 text-blue-800 text-xs font-bold flex items-center gap-2">
+                    <i class="fas fa-sparkles text-blue-600"></i>
+                    <span>Selamat datang! Sila lengkapkan profil perkhidmatan akademik anda di bawah.</span>
                 </div>
 
                 <form id="profile-update-form" class="space-y-3.5 text-xs">
@@ -392,7 +432,38 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- 4. MODAL AUDIT & SEMAKAN DOKUMEN           -->
+    <!-- 4. MODAL TAMBAH & KEMASKINI REKOD FOLIO    -->
+    <!-- ========================================== -->
+    <div id="modal-add" class="fixed inset-0 z-[100] hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen px-4 py-8">
+            <div class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeModal()"></div>
+            <div class="bg-white rounded-[2.5rem] shadow-2xl z-[110] w-full max-w-xl p-6 sm:p-8 relative border border-slate-100 animate-fade-in">
+                
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+                    <div>
+                        <h2 id="modal-title" class="text-xl font-extrabold text-slate-900 uppercase">Tambah Rekod Baharu</h2>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Masukkan pautan dan perincian dokumen akademik</p>
+                    </div>
+                    <button onclick="closeModal()" class="w-9 h-9 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <form id="add-form" class="space-y-3.5 text-xs">
+                    <input type="hidden" id="edit-row-index">
+                    <div id="dynamic-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5"></div>
+                    
+                    <div class="flex gap-3 pt-4 border-t border-slate-100 mt-4">
+                        <button type="button" onclick="closeModal()" class="flex-1 bg-slate-100 text-slate-600 font-bold py-3.5 rounded-xl uppercase text-[10px]">Batal</button>
+                        <button type="submit" id="btn-save" class="flex-1 bg-blue-900 hover:bg-blue-800 text-white font-extrabold py-3.5 rounded-xl shadow-lg shadow-blue-950/20 uppercase text-[10px] btn-interactive">Simpan Rekod</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 5. MODAL AUDIT & SEMAKAN DOKUMEN           -->
     <!-- ========================================== -->
     <div id="modal-checklist" class="fixed inset-0 z-[100] hidden overflow-y-auto">
         <div class="flex items-center justify-center min-h-screen px-4 py-8">
@@ -419,7 +490,7 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- 5. MODAL PENDAFTARAN PENSYARAH (ADMIN)     -->
+    <!-- 6. MODAL PENDAFTARAN PENSYARAH (ADMIN)     -->
     <!-- ========================================== -->
     <div id="modal-users" class="fixed inset-0 z-[100] hidden overflow-y-auto">
         <div class="flex items-center justify-center min-h-screen px-4 py-8">
@@ -428,8 +499,8 @@
                 
                 <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
                     <div>
-                        <h2 class="text-xl font-extrabold text-slate-900 uppercase">Daftar Pensyarah Baharu</h2>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Pentadbir mendaftarkan kakitangan akademik baharu</p>
+                        <h2 class="text-xl font-extrabold text-slate-900 uppercase">Daftar Pensyarah (Admin)</h2>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Pendaftaran kakitangan secara terus oleh pentadbir</p>
                     </div>
                     <button onclick="closeUserModal()" class="w-9 h-9 rounded-full bg-slate-100 text-slate-400 hover:text-slate-700 flex items-center justify-center">
                         <i class="fas fa-times"></i>
@@ -443,7 +514,7 @@
                             <input type="text" id="nu-username" required placeholder="cth: pensyarah@ipgm.edu.my" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-700 focus:bg-white focus:border-blue-600">
                         </div>
                         <div>
-                            <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Password / No. IC</label>
+                            <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Kata Laluan / IC</label>
                             <input type="text" id="nu-password" required placeholder="cth: 800101025555" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-700 focus:bg-white focus:border-blue-600">
                         </div>
                         <div class="sm:col-span-2">
@@ -485,10 +556,10 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- 6. LOGIK APLIKASI JAVASCRIPT LENGKAP       -->
+    <!-- 7. LOGIK JAVASCRIPT LENGKAP                -->
     <!-- ========================================== -->
     <script>
-        // URL Web App Google Apps Script Terkini
+        // URL Google Apps Script Web App Terkini
         const API_URL = "https://script.google.com/macros/s/AKfycbxpehf-tDk3hFCSZDzVdbYWVhhLh8V6z5wADmSqrMZSomEAz_ODSYjTgYFo2odmD5LAjQ/exec";
         
         let currentTab = 'Data_Folio';
@@ -523,10 +594,81 @@
             }
         });
 
-        // 1. PENGENDALI GOOGLE SIGN-IN CREDENTIAL (JWT DECODE)
+        // 1. TUKAR ANTARA TAB LOG MASUK & DAFTAR BAHARU
+        function switchAuthMode(mode) {
+            const btnIn = document.getElementById('tab-btn-signin');
+            const btnUp = document.getElementById('tab-btn-signup');
+            const viewIn = document.getElementById('auth-signin-view');
+            const viewUp = document.getElementById('auth-signup-view');
+
+            if (mode === 'signin') {
+                btnIn.className = 'flex-1 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-white text-blue-900 shadow-sm transition-all';
+                btnUp.className = 'flex-1 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 hover:text-slate-800 transition-all';
+                viewIn.classList.remove('hidden');
+                viewUp.classList.add('hidden');
+            } else {
+                btnUp.className = 'flex-1 py-2 rounded-xl text-xs font-black uppercase tracking-wider bg-white text-blue-900 shadow-sm transition-all';
+                btnIn.className = 'flex-1 py-2 rounded-xl text-xs font-black uppercase tracking-wider text-slate-500 hover:text-slate-800 transition-all';
+                viewIn.classList.add('hidden');
+                viewUp.classList.remove('hidden');
+            }
+        }
+
+        // 2. PENDAFTARAN KENDIRI PENGGUNA BAHARU DARI MUKA DEPAN
+        document.getElementById('self-register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-self-register');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mendaftarkan Profil...';
+            btn.disabled = true;
+
+            const payload = {
+                action: 'addUser',
+                role: 'Pensyarah',
+                newUsername: document.getElementById('reg-email').value.trim().toLowerCase(),
+                newPassword: 'GOOGLE_USER',
+                newNamaPenuh: document.getElementById('reg-nama').value.trim().toUpperCase(),
+                newNoPekerja: document.getElementById('reg-nopekerja').value.trim(),
+                newGred: document.getElementById('reg-gred').value.trim().toUpperCase(),
+                newJabatan: document.getElementById('reg-jabatan').value.trim().toUpperCase(),
+                newRole: 'Pensyarah',
+                newFoto: 'https://i.imgur.com/9uSlDpC.png'
+            };
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                const result = await res.json();
+
+                if (result.result === 'success') {
+                    // Log masuk terus
+                    currentUser = {
+                        Username: payload.newUsername,
+                        Nama_Penuh: payload.newNamaPenuh,
+                        No_Pekerja: payload.newNoPekerja,
+                        Gred: payload.newGred,
+                        Jabatan: payload.newJabatan,
+                        Role: 'Pensyarah',
+                        Foto_URL: payload.newFoto
+                    };
+                    localStorage.setItem('f_user', JSON.stringify(currentUser));
+                    showCustomToast("Pendaftaran berjaya! Selamat datang ke E-Folio IPG.", "success");
+                    showDashboard();
+                } else {
+                    showCustomToast(result.message || "Gagal mendaftar pengguna baharu.", "error");
+                }
+            } catch (err) {
+                showCustomToast("Ralat pelayan semasa pendaftaran.", "error");
+            }
+
+            btn.innerHTML = '<i class="fas fa-check"></i><span>Daftar & Masuk ke Sistem</span>';
+            btn.disabled = false;
+        });
+
+        // 3. PENGENDALI GOOGLE SIGN-IN CREDENTIAL (JWT)
         function onGoogleCredentialResponse(response) {
             try {
-                // Decode Google JWT Base64
                 const base64Url = response.credential.split('.')[1];
                 const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
                 const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
@@ -540,12 +682,11 @@
                     picture: googleData.picture
                 });
             } catch (err) {
-                console.error("Ralat decode token Google:", err);
-                showCustomToast("Gagal memproses token Google!", "error");
+                showCustomToast("Gagal memproses pengesahan Google!", "error");
             }
         }
 
-        // 2. BORANG AKSES PANTAS EMEL GOOGLE (TANPA KATA LALUAN)
+        // 4. AKSES PANTAS EMEL GOOGLE
         document.getElementById('direct-email-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const emailInput = document.getElementById('google-email-input').value.trim();
@@ -558,13 +699,13 @@
             });
         });
 
-        // 3. FUNGSI LOG MASUK / DAFTAR AUTOMATIK KE APPS SCRIPT
+        // 5. PROSES PENGESAHAN DENGAN GOOGLE APPS SCRIPT
         async function processGoogleLogin(payloadData) {
             const btn = document.getElementById('btn-direct-login');
             const errorBox = document.getElementById('login-error');
             const errorText = document.getElementById('login-error-text');
 
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengesahkan Akaun Google...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengesahkan Akaun...';
             btn.disabled = true;
             errorBox.classList.add('hidden');
 
@@ -584,10 +725,15 @@
                     currentUser = result.user;
                     localStorage.setItem('f_user', JSON.stringify(currentUser));
                     
-                    if (result.user.isNewRegistration) {
-                        showCustomToast("Selamat datang! Profil pensyarah baharu anda telah didaftarkan secara automatik.", "success");
-                    }
                     showDashboard();
+
+                    // Jika pengguna baru didaftarkan atau profil masih belum lengkap:
+                    if (result.user.isNewRegistration || !result.user.Gred || result.user.Gred === 'DG41 / DG44') {
+                        setTimeout(() => {
+                            document.getElementById('profile-welcome-banner').classList.remove('hidden');
+                            openProfileModal();
+                        }, 500);
+                    }
                 } else {
                     errorText.innerText = result.message || 'Gagal mengesahkan akaun Google.';
                     errorBox.classList.remove('hidden');
@@ -632,7 +778,7 @@
                 : 'px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-[9px] font-black uppercase tracking-widest border border-blue-200/50';
         }
 
-        // Buka Modal Kemaskini Profil
+        // 6. MODAL KEMASKINI PROFIL PENSYARAH
         function openProfileModal() {
             document.getElementById('up-nama').value = currentUser.Nama_Penuh || '';
             document.getElementById('up-nopekerja').value = currentUser.No_Pekerja || '';
@@ -644,9 +790,10 @@
 
         function closeProfileModal() {
             document.getElementById('modal-edit-profile').classList.add('hidden');
+            document.getElementById('profile-welcome-banner').classList.add('hidden');
         }
 
-        // Simpan Kemaskini Profil Kendiri
+        // Simpan Kemaskini Profil
         document.getElementById('profile-update-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btn-save-profile');
@@ -685,14 +832,287 @@
                     showCustomToast(result.message || "Gagal mengemaskini profil.", "error");
                 }
             } catch (err) {
-                showCustomToast("Ralat pelayan semasa kemaskini profil.", "error");
+                showCustomToast("Ralat semasa kemaskini profil.", "error");
             }
 
             btn.innerHTML = 'Simpan Perubahan';
             btn.disabled = false;
         });
 
+        // 7. PENGURUSAN TAB & PAPARAN REKOD FOLIO
+        function switchTab(name) {
+            currentTab = name;
+            const styleActive = 'whitespace-nowrap px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider bg-blue-600 text-white shadow-md transition-all';
+            const styleInactive = 'whitespace-nowrap px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all';
+            
+            document.getElementById('tab-p').className = name === 'Data_Folio' ? styleActive : styleInactive;
+            document.getElementById('tab-k').className = name === 'Folio_Kursus' ? styleActive : styleInactive;
+            document.getElementById('tab-s').className = name === 'Subjek_Diajar' ? styleActive : styleInactive;
+            
+            document.getElementById('sem-filter-container').classList.toggle('hidden', name === 'Data_Folio');
+            document.getElementById('cat-filter-container').classList.toggle('hidden', name === 'Subjek_Diajar');
+            document.getElementById('btn-audit').classList.toggle('hidden', name === 'Subjek_Diajar');
+            
+            const filter = document.getElementById('category-filter');
+            filter.innerHTML = '<option value="Semua">Semua Kategori</option>' + (name === 'Data_Folio' ? catP : catK).map(c => `<option value="${c}">${c}</option>`).join('');
+            
+            renderHeader();
+            loadData();
+        }
+
+        function renderHeader() {
+            const h = document.getElementById('table-header');
+            const s = "px-6 py-4";
+            const showOwner = (currentUser.Role === 'Admin' || String(currentUser.Username).toLowerCase() === 'auditor') && viewUser === 'Semua';
+            const ownerCol = showOwner ? `<th class="${s}">Pensyarah</th>` : '';
+
+            if (currentTab === 'Subjek_Diajar') {
+                h.innerHTML = `<th class="${s}">Tahun</th><th class="${s}">Sem</th><th class="${s}">Kod</th><th class="${s}">Nama Subjek</th><th class="${s}">Kelas</th>${ownerCol}<th class="${s} text-center">Tindakan</th>`;
+            } else if (currentTab === 'Data_Folio') {
+                h.innerHTML = `<th class="${s}">Tahun</th><th class="${s}">Kategori Dokumen</th><th class="${s}">Tajuk Dokumen</th>${ownerCol}<th class="${s} text-center">Tindakan</th>`;
+            } else {
+                h.innerHTML = `<th class="${s}">Tahun</th><th class="${s}">Sem</th><th class="${s}">Kategori</th><th class="${s}">Tajuk / Nama Kursus</th>${ownerCol}<th class="${s} text-center">Tindakan</th>`;
+            }
+        }
+
+        async function loadData() {
+            document.getElementById('table-body').innerHTML = '<tr><td colspan="7" class="text-center py-12 font-bold text-slate-400 uppercase tracking-widest text-[10px]"><i class="fas fa-spinner fa-spin mr-2 text-blue-600"></i> Memuatkan data folio...</td></tr>';
+            try {
+                let url = `${API_URL}?sheet=${currentTab}&username=${encodeURIComponent(currentUser.Username)}&role=${currentUser.Role}`;
+                if (currentUser.Role === 'Admin' || String(currentUser.Username).toLowerCase() === 'auditor') {
+                    url += `&viewUser=${encodeURIComponent(viewUser)}`;
+                }
+                const res = await fetch(url);
+                fullData = await res.json();
+                
+                const years = [...new Set(fullData.map(d => d.Tahun))].filter(Boolean).sort().reverse();
+                document.getElementById('year-filter').innerHTML = '<option value="Semua">Semua Tahun</option>' + years.map(y => `<option value="${y}">Sesi ${y}</option>`).join('');
+                
+                applyFilters();
+            } catch (err) {
+                document.getElementById('table-body').innerHTML = '<tr><td colspan="7" class="text-center py-8 text-rose-500 font-bold">Gagal memuatkan data dari pelayan. Sila cuba lagi.</td></tr>';
+            }
+        }
+
+        function applyFilters() {
+            const y = document.getElementById('year-filter').value;
+            const s = document.getElementById('sem-filter').value;
+            const c = document.getElementById('category-filter').value;
+            let f = fullData;
+
+            if (y !== "Semua") f = f.filter(d => String(d.Tahun) === String(y));
+            if (currentTab !== 'Data_Folio' && s !== "Semua") f = f.filter(d => String(d.Semester) === String(s));
+            if (currentTab !== 'Subjek_Diajar' && c !== "Semua") f = f.filter(d => String(d.Kategori) === String(c));
+            
+            renderTable(f);
+        }
+
+        function renderTable(data) {
+            document.getElementById('stats-count').innerText = data.length;
+            const body = document.getElementById('table-body');
+            const msg = document.getElementById('empty-msg');
+            const showOwner = (currentUser.Role === 'Admin' || String(currentUser.Username).toLowerCase() === 'auditor') && viewUser === 'Semua';
+
+            if (!data || data.length === 0) {
+                body.innerHTML = '';
+                msg.classList.remove('hidden');
+                return;
+            }
+            msg.classList.add('hidden');
+
+            body.innerHTML = data.map(item => {
+                const row = "px-6 py-4.5 border-b border-slate-100 hover:bg-slate-50/70 transition-colors";
+                const driveId = (item.Pautan || "").includes('/d/') ? item.Pautan.split('/d/')[1].split('/')[0] : '';
+                const dl = driveId ? `https://drive.google.com/uc?export=download&id=${driveId}` : item.Pautan;
+                
+                let c = `<td class="${row} font-black text-slate-400">${item.Tahun}</td>`;
+                if (currentTab === 'Subjek_Diajar') {
+                    c += `<td class="${row} font-bold text-blue-600">SEM ${item.Semester}</td>`;
+                    c += `<td class="${row} font-black text-indigo-700">${item.Kod_Subjek}</td>`;
+                    c += `<td class="${row} font-bold text-slate-800 uppercase">${item.Nama_Subjek}</td>`;
+                    c += `<td class="${row} font-semibold text-slate-500">${item.Kelas}</td>`;
+                } else {
+                    if (currentTab === 'Folio_Kursus') c += `<td class="${row} font-bold text-blue-600 italic">SEM ${item.Semester || '-'}</td>`;
+                    c += `<td class="${row}"><span class="bg-blue-50 text-blue-700 px-2.5 py-1 rounded-lg text-[9px] font-black border border-blue-200/60 uppercase tracking-wider">${item.Kategori}</span></td>`;
+                    const docTitle = item.Keterangan || item.Nama || item.Nama_Kursus || '-';
+                    c += `<td class="${row} font-extrabold text-slate-800 uppercase">${docTitle}</td>`;
+                }
+
+                if (showOwner) {
+                    const ownerLabel = item.Username ? item.Username.split('@')[0].toUpperCase() : 'PENSYARAH';
+                    c += `<td class="${row} text-[10px] font-black text-indigo-600 uppercase">${ownerLabel}</td>`;
+                }
+
+                c += `<td class="${row} text-center">
+                    <div class="flex items-center justify-center gap-2.5">
+                        <button onclick='openModal("edit", ${JSON.stringify(item).replace(/'/g, "&apos;")})' class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center transition-all" title="Kemaskini">
+                            <i class="fas fa-pencil text-xs"></i>
+                        </button>
+                        <button onclick='deleteRecord(${item.rowIndex})' class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 hover:bg-rose-50 hover:text-rose-600 flex items-center justify-center transition-all" title="Padam">
+                            <i class="fas fa-trash-can text-xs"></i>
+                        </button>
+                        ${item.Pautan ? `
+                            <a href="${item.Pautan}" target="_blank" class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white flex items-center justify-center transition-all" title="Buka Dokumen">
+                                <i class="fas fa-arrow-up-right-from-square text-xs"></i>
+                            </a>
+                        ` : ''}
+                        ${driveId ? `
+                            <a href="${dl}" download class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white flex items-center justify-center transition-all" title="Muat Turun Fail">
+                                <i class="fas fa-download text-xs"></i>
+                            </a>
+                        ` : ''}
+                    </div>
+                </td>`;
+
+                return `<tr>${c}</tr>`;
+            }).join('');
+        }
+
+        // 8. PENGURUSAN BORANG TAMBAH / EDIT REKOD
+        function openModal(mode, item = null) {
+            document.getElementById('modal-add').classList.remove('hidden');
+            const fields = document.getElementById('dynamic-fields');
+            document.getElementById('modal-title').innerText = mode === 'edit' ? 'Kemaskini Rekod' : 'Tambah Rekod Baharu';
+            document.getElementById('edit-row-index').value = mode === 'edit' ? item.rowIndex : '';
+
+            let html = `
+                <div>
+                    <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Tahun Sesi</label>
+                    <input type="number" id="f-tahun" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-slate-800" value="${item ? item.Tahun : new Date().getFullYear()}">
+                </div>
+            `;
+
+            if (currentTab === 'Subjek_Diajar') {
+                html += `
+                    <div>
+                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Semester</label>
+                        <select id="f-semester" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-slate-800">
+                            <option value="I">Semester I</option>
+                            <option value="II">Semester II</option>
+                            <option value="III">Semester III</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Kod Subjek</label>
+                        <input type="text" id="f-kod" required placeholder="cth: EDUP3013" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold uppercase text-slate-800" value="${item ? item.Kod_Subjek : ''}">
+                    </div>
+                    <div>
+                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Nama Subjek</label>
+                        <input type="text" id="f-subjek" required placeholder="cth: FALSAFAH PENDIDIKAN" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold uppercase text-slate-800" value="${item ? item.Nama_Subjek : ''}">
+                    </div>
+                    <div>
+                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Kelas / Kumpulan</label>
+                        <input type="text" id="f-kelas" required placeholder="cth: PISMP BM SK 1" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-slate-800" value="${item ? item.Kelas : ''}">
+                    </div>
+                    <div>
+                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Pautan Fail / Folder</label>
+                        <input type="url" id="f-pautan" placeholder="https://drive.google.com/..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800" value="${item ? item.Pautan : ''}">
+                    </div>
+                `;
+            } else {
+                if (currentTab === 'Folio_Kursus') {
+                    html += `
+                        <div>
+                            <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Semester</label>
+                            <select id="f-semester" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-slate-800">
+                                <option value="I">Semester I</option>
+                                <option value="II">Semester II</option>
+                                <option value="III">Semester III</option>
+                            </select>
+                        </div>
+                    `;
+                }
+
+                const list = currentTab === 'Data_Folio' ? catP : catK;
+                html += `
+                    <div>
+                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Kategori Rekod</label>
+                        <select id="f-kategori" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold text-slate-800">
+                            ${list.map(c => `<option value="${c}">${c}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Tajuk / Nama Rekod</label>
+                        <input type="text" id="f-nama" required placeholder="cth: SURAT LANTIKAN KETUA JABATAN" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-bold uppercase text-slate-800" value="${item ? (item.Nama || item.Nama_Kursus || item.Keterangan || '') : ''}">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Pautan Google Drive</label>
+                        <input type="url" id="f-pautan" required placeholder="https://drive.google.com/file/d/..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800" value="${item ? item.Pautan : ''}">
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Keterangan Tambahan (Pilihan)</label>
+                        <textarea id="f-keterangan" rows="2" placeholder="Catatan ringkas mengenai fail ini..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800">${item ? (item.Keterangan || '') : ''}</textarea>
+                    </div>
+                `;
+            }
+
+            fields.innerHTML = html;
+            if (item && currentTab !== 'Data_Folio' && document.getElementById('f-semester')) {
+                document.getElementById('f-semester').value = item.Semester;
+            }
+            if (item && currentTab !== 'Subjek_Diajar' && document.getElementById('f-kategori')) {
+                document.getElementById('f-kategori').value = item.Kategori;
+            }
+        }
+
+        document.getElementById('add-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-save');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Menyimpan...';
+            btn.disabled = true;
+
+            const rowIndex = document.getElementById('edit-row-index').value;
+            let payload = {
+                targetSheet: currentTab,
+                action: rowIndex ? "edit" : "add",
+                rowIndex: rowIndex,
+                tahun: document.getElementById('f-tahun').value,
+                username: currentUser.Username,
+                role: currentUser.Role
+            };
+
+            if (currentTab === 'Subjek_Diajar') {
+                payload.semester = document.getElementById('f-semester').value;
+                payload.kod_subjek = document.getElementById('f-kod').value;
+                payload.nama_subjek = document.getElementById('f-subjek').value;
+                payload.kelas = document.getElementById('f-kelas').value;
+                payload.pautan = document.getElementById('f-pautan').value;
+            } else {
+                payload.kategori = document.getElementById('f-kategori').value;
+                payload.pautan = document.getElementById('f-pautan').value;
+                payload.keterangan = document.getElementById('f-keterangan').value || document.getElementById('f-nama').value;
+                if (currentTab === 'Folio_Kursus') {
+                    payload.semester = document.getElementById('f-semester').value;
+                    payload.nama_kursus = document.getElementById('f-nama').value;
+                } else {
+                    payload.nama = document.getElementById('f-nama').value;
+                }
+            }
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                const result = await res.json();
+                if (result.result === 'success') {
+                    closeModal();
+                    loadData();
+                    showCustomToast(rowIndex ? "Rekod berjaya dikemaskini!" : "Rekod baharu berjaya disimpan!", "success");
+                } else {
+                    showCustomToast(result.message || "Gagal menyimpan rekod.", "error");
+                }
+            } catch (err) {
+                showCustomToast("Ralat pelayan semasa menyimpan data.", "error");
+            }
+
+            btn.innerHTML = 'Simpan Rekod';
+            btn.disabled = false;
+        });
+
         async function deleteRecord(rowIndex) {
+            if (!window.confirm("Adakah anda pasti mahu memadam rekod ini? Tindakan ini tidak boleh diundur.")) return;
+
             try {
                 const res = await fetch(API_URL, {
                     method: 'POST',
@@ -749,6 +1169,31 @@
             document.getElementById('modal-checklist').classList.remove('hidden');
         }
 
+        async function loadLecturerList() {
+            try {
+                const res = await fetch(`${API_URL}?sheet=LecturerList`);
+                lecturerList = await res.json();
+                const sel = document.getElementById('lecturer-filter');
+                if (sel && Array.isArray(lecturerList)) {
+                    sel.innerHTML = '<option value="Semua">Semua Pensyarah</option>' +
+                        lecturerList.map(l => `<option value="${l.Username}">${l.Nama_Penuh || l.Username}</option>`).join('');
+                }
+            } catch (err) {
+                console.error("Gagal memuatkan senarai pensyarah:", err);
+            }
+        }
+
+        function onLecturerFilterChange() {
+            viewUser = document.getElementById('lecturer-filter').value;
+            if (viewUser !== 'Semua') {
+                const lect = lecturerList.find(l => l.Username === viewUser);
+                if (lect) renderProfile(lect);
+            } else {
+                renderProfile(currentUser);
+            }
+            loadData();
+        }
+
         function openUserModal() {
             document.getElementById('user-form').reset();
             document.getElementById('modal-users').classList.remove('hidden');
@@ -798,6 +1243,7 @@
         function closeModal() { document.getElementById('modal-add').classList.add('hidden'); }
         function closeChecklist() { document.getElementById('modal-checklist').classList.add('hidden'); }
         function closeUserModal() { document.getElementById('modal-users').classList.add('hidden'); }
+        
         function logout() {
             localStorage.removeItem('f_user');
             location.reload();
