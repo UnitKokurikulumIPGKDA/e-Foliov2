@@ -942,7 +942,7 @@
                 } else {
                     if (currentTab === 'Folio_Kursus') c += `<td class="${row} font-bold text-blue-600 italic">SEM ${item.Semester || '-'}</td>`;
                     c += `<td class="${row}"><span class="bg-blue-50 text-blue-700 px-2.5 py-1 rounded-lg text-[9px] font-black border border-blue-200/60 uppercase tracking-wider">${item.Kategori}</span></td>`;
-                    const docTitle = item.Keterangan || item.Nama || item.Nama_Kursus || '-';
+                    const docTitle = item.Nama || item.Nama_Kursus || item.Keterangan || '-';
                     c += `<td class="${row} font-extrabold text-slate-800 uppercase">${docTitle}</td>`;
                 }
 
