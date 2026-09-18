@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>E-Folio IPG Premium v15.0 - Pengurusan Folio Digital</title>
+    <title>E-Folio IPG Premium v16.0 - Pengurusan Folio Digital</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Kit -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Identity Services -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <style>
         * {
             box-sizing: border-box;
@@ -32,7 +30,7 @@
 
         .bg-mesh-dark {
             background-color: #070d19;
-            background-image: 
+            background-image:
                 radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.45) 0px, transparent 55%),
                 radial-gradient(at 100% 100%, rgba(37, 99, 235, 0.25) 0px, transparent 50%),
                 radial-gradient(at 50% 50%, rgba(15, 23, 42, 0.95) 0px, transparent 100%);
@@ -93,7 +91,7 @@
         <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="max-w-md w-full glass-panel rounded-[2.5rem] shadow-2xl p-6 sm:p-8 relative z-10 border border-white/60 animate-fade-in text-center">
-            
+
             <!-- Logo Header -->
             <div class="flex justify-center mb-4">
                 <div class="p-2.5 bg-slate-50 rounded-3xl border border-slate-100 shadow-inner">
@@ -103,7 +101,7 @@
 
             <div class="mb-5">
                 <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/60 text-blue-700 text-[10px] font-black uppercase tracking-widest mb-1.5">
-                    <i class="fab fa-google text-blue-600"></i> Sistem E-Folio IPG
+                    <i class="fas fa-shield-halved text-blue-600"></i> Sistem E-Folio IPG
                 </span>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none uppercase italic">
                     E-FOLIO <span class="text-blue-600">IPG</span>
@@ -121,41 +119,39 @@
                 </button>
             </div>
 
-            <!-- VIEW A: LOG MASUK PANTAS / GOOGLE -->
+            <!-- VIEW A: LOG MASUK EMEL & KATA LALUAN -->
             <div id="auth-signin-view" class="space-y-4">
-                <div class="bg-slate-50/90 p-4 rounded-2xl border border-slate-200 text-left">
-                    <div class="flex items-center gap-2 mb-2 justify-center text-blue-800">
-                        <i class="fab fa-google text-lg text-blue-600"></i>
-                        <span class="text-xs font-black uppercase tracking-wider">Log Masuk Akaun Google IPGM / KPM</span>
-                    </div>
-                    <p class="text-[11px] text-slate-500 font-semibold text-center mb-3">
-                        Gunakan emel rasmi Google anda (cth: <span class="font-bold text-slate-700">@moe-dl.edu.my</span> atau <span class="font-bold text-slate-700">@ipgm.edu.my</span>). Tiada kata laluan diperlukan.
-                    </p>
-
-                    <!-- Fast Direct Email Login -->
-                    <form id="direct-email-form" class="space-y-3">
-                        <div class="text-left">
-                            <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1 ml-1">Alamat Emel Google Anda</label>
-                            <div class="relative">
-                                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-blue-600">
-                                    <i class="fas fa-envelope text-sm"></i>
-                                </span>
-                                <input type="email" id="google-email-input" required placeholder="cth: ipgm-3679@moe-dl.edu.my" 
-                                    class="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-2xl outline-none font-bold text-xs text-slate-800 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all shadow-sm">
-                            </div>
+                <form id="login-form" class="space-y-3 text-left">
+                    <div>
+                        <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1 ml-1">Alamat Emel</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-blue-600">
+                                <i class="fas fa-envelope text-sm"></i>
+                            </span>
+                            <input type="email" id="login-email" required placeholder="cth: ahmad@ipgm.edu.my"
+                                class="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-2xl outline-none font-bold text-xs text-slate-800 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all shadow-sm">
                         </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 mb-1 ml-1">Kata Laluan</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-blue-600">
+                                <i class="fas fa-lock text-sm"></i>
+                            </span>
+                            <input type="password" id="login-password" required placeholder="Kata laluan anda"
+                                class="w-full pl-11 pr-4 py-3 bg-white border border-slate-300 rounded-2xl outline-none font-bold text-xs text-slate-800 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all shadow-sm">
+                        </div>
+                    </div>
 
-                        <button type="submit" id="btn-direct-login" class="w-full bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 hover:from-blue-800 hover:to-indigo-800 text-white font-extrabold py-3.5 rounded-2xl shadow-xl shadow-blue-900/25 uppercase text-[11px] tracking-widest btn-interactive flex items-center justify-center gap-2">
-                            <i class="fab fa-google"></i>
-                            <span>Masuk Dengan Akaun Google</span>
-                            <i class="fas fa-arrow-right text-xs ml-1"></i>
-                        </button>
-                    </form>
-                </div>
+                    <button type="submit" id="btn-direct-login" class="w-full bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 hover:from-blue-800 hover:to-indigo-800 text-white font-extrabold py-3.5 rounded-2xl shadow-xl shadow-blue-900/25 uppercase text-[11px] tracking-widest btn-interactive flex items-center justify-center gap-2">
+                        <span>Log Masuk</span>
+                        <i class="fas fa-arrow-right text-xs ml-1"></i>
+                    </button>
+                </form>
 
                 <div class="text-center">
                     <span class="text-[10px] text-slate-400 font-bold">
-                        Pengguna kali pertama? Profil anda akan didaftarkan secara automatik.
+                        Belum ada akaun? Klik tab "Daftar Baharu" di atas.
                     </span>
                 </div>
             </div>
@@ -172,8 +168,18 @@
                         <input type="text" id="reg-nama" required placeholder="cth: DR. AHMAD BIN ISMAIL" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold uppercase text-slate-800 focus:bg-white focus:border-blue-600">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-slate-500 mb-0.5">Alamat Emel Google</label>
+                        <label class="block text-[10px] font-black uppercase text-slate-500 mb-0.5">Alamat Emel</label>
                         <input type="email" id="reg-email" required placeholder="cth: ahmad@ipgm.edu.my" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800 focus:bg-white focus:border-blue-600">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-slate-500 mb-0.5">Kata Laluan</label>
+                            <input type="password" id="reg-password" required minlength="6" placeholder="Min. 6 aksara" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800 focus:bg-white focus:border-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black uppercase text-slate-500 mb-0.5">Ulang Kata Laluan</label>
+                            <input type="password" id="reg-password-confirm" required minlength="6" placeholder="Sahkan kata laluan" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-800 focus:bg-white focus:border-blue-600">
+                        </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <div>
@@ -213,20 +219,20 @@
     <!-- 2. MODUL PAPAN PEMUKA UTAMA (DASHBOARD)    -->
     <!-- ========================================== -->
     <div id="dashboard-page" class="hidden min-h-screen flex flex-col bg-slate-50">
-        
+
         <!-- Top App Bar Navigation -->
         <nav class="bg-[#0b1120] text-white shadow-xl sticky top-0 z-50 px-4 md:px-8 py-3 border-b border-slate-800">
             <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-                
+
                 <div class="flex items-center gap-3 md:gap-4 w-full md:w-auto justify-between md:justify-start">
                     <div class="flex items-center gap-3">
                         <img src="https://imgur.com/xIwHCKd.png" alt="Logo IPG" class="w-12 h-12 md:w-14 md:h-14 object-contain">
                         <div class="flex flex-col">
                             <span class="text-lg md:text-xl font-black uppercase tracking-tight italic">IPG <span class="text-blue-400">PORTAL</span></span>
-                            <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">E-FOLIO DIGITAL v15.0</span>
+                            <span class="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.25em] text-slate-400">E-FOLIO DIGITAL v16.0</span>
                         </div>
                     </div>
-                    
+
                     <button onclick="logout()" class="md:hidden text-slate-400 hover:text-rose-400 p-2 text-base" title="Log Keluar">
                         <i class="fas fa-power-off"></i>
                     </button>
@@ -238,22 +244,22 @@
                         <i class="fas fa-user-pen text-xs"></i>
                         <span>Kemaskini Profil</span>
                     </button>
-                    
+
                     <button id="btn-manage-users" onclick="openUserModal()" class="hidden bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider btn-interactive flex items-center gap-1.5 shadow-md shadow-indigo-900/30">
                         <i class="fas fa-users-gear text-xs"></i>
                         <span>Urus Pensyarah</span>
                     </button>
-                    
+
                     <button id="btn-audit" onclick="showChecklist()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider btn-interactive flex items-center gap-1.5 shadow-md shadow-emerald-900/30">
                         <i class="fas fa-clipboard-check text-xs"></i>
                         <span>Audit Folio</span>
                     </button>
-                    
+
                     <button onclick="openModal('add')" class="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider btn-interactive flex items-center gap-1.5 border border-slate-700">
                         <i class="fas fa-plus text-xs"></i>
                         <span>Tambah Rekod</span>
                     </button>
-                    
+
                     <button onclick="logout()" class="hidden md:flex items-center justify-center w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:bg-rose-500 hover:text-white transition-all btn-interactive ml-1" title="Log Keluar">
                         <i class="fas fa-power-off text-sm"></i>
                     </button>
@@ -299,7 +305,7 @@
                         </button>
                     </div>
                     <h2 id="profile-name" class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug uppercase">-</h2>
-                    
+
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 max-w-xl">
                         <div class="bg-slate-50/80 border border-slate-200/60 p-3 rounded-2xl">
                             <span class="block text-[8px] font-black uppercase tracking-wider text-slate-400">Gred Perkhidmatan</span>
@@ -320,7 +326,7 @@
             <!-- Filters & Data Control Bar -->
             <div class="glass-panel p-6 rounded-[2rem] shadow-sm border border-slate-200/80 flex flex-col md:flex-row items-stretch md:items-end justify-between gap-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 flex-1">
-                    
+
                     <div id="lecturer-filter-container" class="space-y-1 hidden">
                         <label class="block text-[10px] font-black uppercase tracking-wider text-slate-500 ml-1">Pilih Pensyarah (Admin)</label>
                         <select id="lecturer-filter" onchange="onLecturerFilterChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 font-bold text-xs text-slate-700 outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"></select>
@@ -363,7 +369,7 @@
                         <tbody id="table-body" class="text-slate-700 text-xs font-semibold divide-y divide-slate-100"></tbody>
                     </table>
                 </div>
-                
+
                 <div id="empty-msg" class="hidden py-16 px-4 text-center">
                     <div class="w-16 h-16 mx-auto mb-3 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
                         <i class="fas fa-folder-open text-2xl"></i>
@@ -382,7 +388,7 @@
         <div class="flex items-center justify-center min-h-screen px-4 py-8">
             <div class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeProfileModal()"></div>
             <div class="bg-white rounded-[2.5rem] shadow-2xl z-[110] w-full max-w-lg p-6 sm:p-8 relative border border-slate-100 animate-fade-in">
-                
+
                 <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
                     <div>
                         <h2 class="text-xl font-extrabold text-slate-900 uppercase">Kemaskini Profil Pensyarah</h2>
@@ -438,7 +444,7 @@
         <div class="flex items-center justify-center min-h-screen px-4 py-8">
             <div class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeModal()"></div>
             <div class="bg-white rounded-[2.5rem] shadow-2xl z-[110] w-full max-w-xl p-6 sm:p-8 relative border border-slate-100 animate-fade-in">
-                
+
                 <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
                     <div>
                         <h2 id="modal-title" class="text-xl font-extrabold text-slate-900 uppercase">Tambah Rekod Baharu</h2>
@@ -452,7 +458,7 @@
                 <form id="add-form" class="space-y-3.5 text-xs">
                     <input type="hidden" id="edit-row-index">
                     <div id="dynamic-fields" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5"></div>
-                    
+
                     <div class="flex gap-3 pt-4 border-t border-slate-100 mt-4">
                         <button type="button" onclick="closeModal()" class="flex-1 bg-slate-100 text-slate-600 font-bold py-3.5 rounded-xl uppercase text-[10px]">Batal</button>
                         <button type="submit" id="btn-save" class="flex-1 bg-blue-900 hover:bg-blue-800 text-white font-extrabold py-3.5 rounded-xl shadow-lg shadow-blue-950/20 uppercase text-[10px] btn-interactive">Simpan Rekod</button>
@@ -469,7 +475,7 @@
         <div class="flex items-center justify-center min-h-screen px-4 py-8">
             <div class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeChecklist()"></div>
             <div class="bg-white rounded-[2.5rem] shadow-2xl z-[110] w-full max-w-lg p-6 sm:p-8 relative border border-slate-100 animate-fade-in">
-                
+
                 <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
                     <div>
                         <h2 class="text-xl font-extrabold text-slate-900 uppercase">Status Audit Dokumen</h2>
@@ -496,7 +502,7 @@
         <div class="flex items-center justify-center min-h-screen px-4 py-8">
             <div class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm" onclick="closeUserModal()"></div>
             <div class="bg-white rounded-[2.5rem] shadow-2xl z-[110] w-full max-w-xl p-6 sm:p-8 relative border border-slate-100 animate-fade-in">
-                
+
                 <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
                     <div>
                         <h2 class="text-xl font-extrabold text-slate-900 uppercase">Daftar Pensyarah (Admin)</h2>
@@ -511,10 +517,10 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         <div>
                             <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Username / Emel</label>
-                            <input type="text" id="nu-username" required placeholder="cth: pensyarah@ipgm.edu.my" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-700 focus:bg-white focus:border-blue-600">
+                            <input type="email" id="nu-username" required placeholder="cth: pensyarah@ipgm.edu.my" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-700 focus:bg-white focus:border-blue-600">
                         </div>
                         <div>
-                            <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Kata Laluan / IC</label>
+                            <label class="block mb-1 text-[10px] font-black uppercase text-slate-500">Kata Laluan Awal</label>
                             <input type="text" id="nu-password" required placeholder="cth: 800101025555" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-semibold text-slate-700 focus:bg-white focus:border-blue-600">
                         </div>
                         <div class="sm:col-span-2">
@@ -561,7 +567,7 @@
     <script>
         // URL Google Apps Script Web App Terkini
         const API_URL = "https://script.google.com/macros/s/AKfycbxpehf-tDk3hFCSZDzVdbYWVhhLh8V6z5wADmSqrMZSomEAz_ODSYjTgYFo2odmD5LAjQ/exec";
-        
+
         let currentTab = 'Data_Folio';
         let fullData = [];
         let currentUser = null;
@@ -569,16 +575,16 @@
         let viewUser = "Semua";
 
         const catP = [
-            "PROFIL PENSYARAH", "SENARAI TUGAS", "SIJIL KELAYAKAN", 
-            "SURAT LANTIKAN PERKHIDMATAN", "SURAT PANGGILAN", 
+            "PROFIL PENSYARAH", "SENARAI TUGAS", "SIJIL KELAYAKAN",
+            "SURAT LANTIKAN PERKHIDMATAN", "SURAT PANGGILAN",
             "SIJIL KURSUS ATAU BENGKEL", "LAIN LAIN"
         ];
-        
+
         const catK = [
-            "KALENDER AKADEMIK", "JADUAL WAKTU", "MAKLUMAT KURSUS", 
-            "RANCANGAN SEMESTER", "RANCANGAN MINGGUAN", "MAKLUMAT PELAJAR", 
-            "REKOD KEHADIRAN PELAJAR", "JST", "SOALAN TUGASAN", "RUBRIK", 
-            "PENTAKSIRAN", "MODERASI PENTAKSIRAN", "LAPORAN PENTAKSIRAN", 
+            "KALENDER AKADEMIK", "JADUAL WAKTU", "MAKLUMAT KURSUS",
+            "RANCANGAN SEMESTER", "RANCANGAN MINGGUAN", "MAKLUMAT PELAJAR",
+            "REKOD KEHADIRAN PELAJAR", "JST", "SOALAN TUGASAN", "RUBRIK",
+            "PENTAKSIRAN", "MODERASI PENTAKSIRAN", "LAPORAN PENTAKSIRAN",
             "TUGAS TAMBAHAN", "PERINCIAN ATP", "LAIN LAIN"
         ];
 
@@ -612,18 +618,81 @@
                 viewIn.classList.add('hidden');
                 viewUp.classList.remove('hidden');
             }
+            document.getElementById('login-error').classList.add('hidden');
         }
 
-        // 2. PENDAFTARAN KENDIRI PENGGUNA BAHARU DARI MUKA DEPAN
+        // 2. LOG MASUK MENGGUNAKAN EMEL & KATA LALUAN BERDAFTAR
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-direct-login');
+            const errorBox = document.getElementById('login-error');
+            const errorText = document.getElementById('login-error-text');
+            const originalHtml = btn.innerHTML;
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengesahkan...';
+            btn.disabled = true;
+            errorBox.classList.add('hidden');
+
+            const payload = {
+                action: 'login',
+                username: document.getElementById('login-email').value.trim().toLowerCase(),
+                password: document.getElementById('login-password').value
+            };
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                const result = await res.json();
+
+                if (result.result === 'success' && result.user) {
+                    currentUser = result.user;
+                    localStorage.setItem('f_user', JSON.stringify(currentUser));
+                    showDashboard();
+                } else {
+                    errorText.innerText = result.message || 'Emel atau kata laluan salah.';
+                    errorBox.classList.remove('hidden');
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                errorText.innerText = "Ralat sambungan pelayan.";
+                errorBox.classList.remove('hidden');
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
+        });
+
+        // 3. PENDAFTARAN KENDIRI PENGGUNA BAHARU (EMEL + KATA LALUAN)
         document.getElementById('self-register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btn-self-register');
+            const errorBox = document.getElementById('login-error');
+            const errorText = document.getElementById('login-error-text');
+            const pw = document.getElementById('reg-password').value;
+            const pwConfirm = document.getElementById('reg-password-confirm').value;
+
+            if (pw !== pwConfirm) {
+                errorText.innerText = 'Kata laluan dan ulangan tidak sepadan.';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+            if (pw.length < 6) {
+                errorText.innerText = 'Kata laluan mestilah sekurang-kurangnya 6 aksara.';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+            errorBox.classList.add('hidden');
+
+            const originalHtml = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mendaftarkan Profil...';
             btn.disabled = true;
 
             const payload = {
-                action: 'selfRegister',
+                action: 'register',
                 newUsername: document.getElementById('reg-email').value.trim().toLowerCase(),
+                newPassword: pw,
                 newNamaPenuh: document.getElementById('reg-nama').value.trim().toUpperCase(),
                 newNoPekerja: document.getElementById('reg-nopekerja').value.trim(),
                 newGred: document.getElementById('reg-gred').value.trim().toUpperCase(),
@@ -639,16 +708,7 @@
                 const result = await res.json();
 
                 if (result.result === 'success') {
-                    // Log masuk serta-merta menggunakan data yang baru didaftarkan
-                    currentUser = result.user || {
-                        Username: payload.newUsername,
-                        Nama_Penuh: payload.newNamaPenuh,
-                        No_Pekerja: payload.newNoPekerja,
-                        Gred: payload.newGred,
-                        Jabatan: payload.newJabatan,
-                        Role: 'Pensyarah',
-                        Foto_URL: payload.newFoto
-                    };
+                    currentUser = result.user;
                     localStorage.setItem('f_user', JSON.stringify(currentUser));
                     showCustomToast("Pendaftaran berjaya! Selamat datang ke E-Folio IPG.", "success");
                     showDashboard();
@@ -659,91 +719,9 @@
                 showCustomToast("Ralat pelayan semasa pendaftaran.", "error");
             }
 
-            btn.innerHTML = '<i class="fas fa-check"></i><span>Daftar & Masuk ke Sistem</span>';
+            btn.innerHTML = originalHtml;
             btn.disabled = false;
         });
-
-        // 3. PENGENDALI GOOGLE SIGN-IN CREDENTIAL (JWT)
-        function onGoogleCredentialResponse(response) {
-            try {
-                const base64Url = response.credential.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join(''));
-                
-                const googleData = JSON.parse(jsonPayload);
-                processGoogleLogin({
-                    email: googleData.email,
-                    name: googleData.name,
-                    picture: googleData.picture
-                });
-            } catch (err) {
-                showCustomToast("Gagal memproses pengesahan Google!", "error");
-            }
-        }
-
-        // 4. AKSES PANTAS EMEL GOOGLE
-        document.getElementById('direct-email-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const emailInput = document.getElementById('google-email-input').value.trim();
-            if (!emailInput) return;
-
-            processGoogleLogin({
-                email: emailInput,
-                name: emailInput.split('@')[0].toUpperCase().replace(/\./g, ' '),
-                picture: 'https://i.imgur.com/9uSlDpC.png'
-            });
-        });
-
-        // 5. PROSES PENGESAHAN DENGAN GOOGLE APPS SCRIPT
-        async function processGoogleLogin(payloadData) {
-            const btn = document.getElementById('btn-direct-login');
-            const errorBox = document.getElementById('login-error');
-            const errorText = document.getElementById('login-error-text');
-
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Mengesahkan Akaun...';
-            btn.disabled = true;
-            errorBox.classList.add('hidden');
-
-            try {
-                const res = await fetch(API_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        action: 'googleLogin',
-                        email: payloadData.email,
-                        name: payloadData.name,
-                        picture: payloadData.picture
-                    })
-                });
-                const result = await res.json();
-
-                if (result.result === 'success' && result.user) {
-                    currentUser = result.user;
-                    localStorage.setItem('f_user', JSON.stringify(currentUser));
-                    
-                    showDashboard();
-
-                    // Jika pengguna baru didaftarkan atau profil masih belum lengkap:
-                    if (result.user.isNewRegistration || !result.user.Gred || result.user.Gred === 'DG41 / DG44') {
-                        setTimeout(() => {
-                            document.getElementById('profile-welcome-banner').classList.remove('hidden');
-                            openProfileModal();
-                        }, 500);
-                    }
-                } else {
-                    errorText.innerText = result.message || 'Gagal mengesahkan akaun Google.';
-                    errorBox.classList.remove('hidden');
-                    btn.innerHTML = '<span>Teruskan Tanpa Kata Laluan</span><i class="fas fa-arrow-right text-xs"></i>';
-                    btn.disabled = false;
-                }
-            } catch (err) {
-                errorText.innerText = "Ralat sambungan pelayan Google Apps Script.";
-                errorBox.classList.remove('hidden');
-                btn.innerHTML = '<span>Teruskan Tanpa Kata Laluan</span><i class="fas fa-arrow-right text-xs"></i>';
-                btn.disabled = false;
-            }
-        }
 
         async function showDashboard() {
             document.getElementById('login-page').classList.add('hidden');
@@ -762,20 +740,20 @@
 
         function renderProfile(user) {
             document.getElementById('profile-photo').src = user.Foto_URL || "https://i.imgur.com/9uSlDpC.png";
-            document.getElementById('profile-name').innerText = user.Nama_Penuh || user.Username;
+            document.getElementById('profile-name').innerText = (user.Nama_Penuh && String(user.Nama_Penuh).trim()) ? user.Nama_Penuh : 'Nama Belum Ditetapkan';
             document.getElementById('profile-user-id').innerText = `ID: ${user.Username}`;
             document.getElementById('profile-gred').innerText = user.Gred || 'DG41 / DG44';
             document.getElementById('profile-jabatan').innerText = user.Jabatan || 'IPG KAMPUS DARULAMAN';
             document.getElementById('profile-nopekerja').innerText = user.No_Pekerja || '-';
-            
+
             const isPrivileged = user.Role === 'Admin' || String(user.Username).toLowerCase() === 'auditor';
             document.getElementById('profile-badge').innerText = isPrivileged ? 'Profil Pentadbir / Auditor' : 'Profil Pensyarah';
-            document.getElementById('profile-badge').className = isPrivileged 
+            document.getElementById('profile-badge').className = isPrivileged
                 ? 'px-3 py-1 rounded-full bg-indigo-50 text-indigo-800 text-[9px] font-black uppercase tracking-widest border border-indigo-200/50'
                 : 'px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-[9px] font-black uppercase tracking-widest border border-blue-200/50';
         }
 
-        // 6. MODAL KEMASKINI PROFIL PENSYARAH
+        // 4. MODAL KEMASKINI PROFIL PENSYARAH
         function openProfileModal() {
             document.getElementById('up-nama').value = currentUser.Nama_Penuh || '';
             document.getElementById('up-nopekerja').value = currentUser.No_Pekerja || '';
@@ -836,23 +814,23 @@
             btn.disabled = false;
         });
 
-        // 7. PENGURUSAN TAB & PAPARAN REKOD FOLIO
+        // 5. PENGURUSAN TAB & PAPARAN REKOD FOLIO
         function switchTab(name) {
             currentTab = name;
             const styleActive = 'whitespace-nowrap px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider bg-blue-600 text-white shadow-md transition-all';
             const styleInactive = 'whitespace-nowrap px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all';
-            
+
             document.getElementById('tab-p').className = name === 'Data_Folio' ? styleActive : styleInactive;
             document.getElementById('tab-k').className = name === 'Folio_Kursus' ? styleActive : styleInactive;
             document.getElementById('tab-s').className = name === 'Subjek_Diajar' ? styleActive : styleInactive;
-            
+
             document.getElementById('sem-filter-container').classList.toggle('hidden', name === 'Data_Folio');
             document.getElementById('cat-filter-container').classList.toggle('hidden', name === 'Subjek_Diajar');
             document.getElementById('btn-audit').classList.toggle('hidden', name === 'Subjek_Diajar');
-            
+
             const filter = document.getElementById('category-filter');
             filter.innerHTML = '<option value="Semua">Semua Kategori</option>' + (name === 'Data_Folio' ? catP : catK).map(c => `<option value="${c}">${c}</option>`).join('');
-            
+
             renderHeader();
             loadData();
         }
@@ -881,10 +859,10 @@
                 }
                 const res = await fetch(url);
                 fullData = await res.json();
-                
+
                 const years = [...new Set(fullData.map(d => d.Tahun))].filter(Boolean).sort().reverse();
                 document.getElementById('year-filter').innerHTML = '<option value="Semua">Semua Tahun</option>' + years.map(y => `<option value="${y}">Sesi ${y}</option>`).join('');
-                
+
                 applyFilters();
             } catch (err) {
                 document.getElementById('table-body').innerHTML = '<tr><td colspan="7" class="text-center py-8 text-rose-500 font-bold">Gagal memuatkan data dari pelayan. Sila cuba lagi.</td></tr>';
@@ -900,7 +878,7 @@
             if (y !== "Semua") f = f.filter(d => String(d.Tahun) === String(y));
             if (currentTab !== 'Data_Folio' && s !== "Semua") f = f.filter(d => String(d.Semester) === String(s));
             if (currentTab !== 'Subjek_Diajar' && c !== "Semua") f = f.filter(d => String(d.Kategori) === String(c));
-            
+
             renderTable(f);
         }
 
@@ -921,7 +899,7 @@
                 const row = "px-6 py-4.5 border-b border-slate-100 hover:bg-slate-50/70 transition-colors";
                 const driveId = (item.Pautan || "").includes('/d/') ? item.Pautan.split('/d/')[1].split('/')[0] : '';
                 const dl = driveId ? `https://drive.google.com/uc?export=download&id=${driveId}` : item.Pautan;
-                
+
                 let c = `<td class="${row} font-black text-slate-400">${item.Tahun}</td>`;
                 if (currentTab === 'Subjek_Diajar') {
                     c += `<td class="${row} font-bold text-blue-600">SEM ${item.Semester}</td>`;
@@ -965,7 +943,7 @@
             }).join('');
         }
 
-        // 8. PENGURUSAN BORANG TAMBAH / EDIT REKOD
+        // 6. PENGURUSAN BORANG TAMBAH / EDIT REKOD
         function openModal(mode, item = null) {
             document.getElementById('modal-add').classList.remove('hidden');
             const fields = document.getElementById('dynamic-fields');
@@ -1122,7 +1100,7 @@
                     })
                 });
                 const result = await res.json();
-                
+
                 if (result.result === "success") {
                     loadData();
                     showCustomToast("Rekod telah dipadam.", "info");
@@ -1240,7 +1218,7 @@
         function closeModal() { document.getElementById('modal-add').classList.add('hidden'); }
         function closeChecklist() { document.getElementById('modal-checklist').classList.add('hidden'); }
         function closeUserModal() { document.getElementById('modal-users').classList.add('hidden'); }
-        
+
         function logout() {
             localStorage.removeItem('f_user');
             location.reload();
