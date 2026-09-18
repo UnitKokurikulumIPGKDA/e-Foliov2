@@ -588,17 +588,50 @@
             "TUGAS TAMBAHAN", "PERINCIAN ATP", "LAIN LAIN"
         ];
 
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
             const savedSession = localStorage.getItem('f_user');
             if (savedSession) {
                 try {
                     currentUser = JSON.parse(savedSession);
                     showDashboard();
+                    // Segerakkan profil dengan data terkini pada pelayan. Jika akaun sudah
+                    // tiada wujud (cth. sesi lama/rosak), pengguna akan dilog keluar secara automatik.
+                    await syncCurrentUserProfile();
                 } catch (e) {
                     localStorage.removeItem('f_user');
                 }
             }
         });
+
+        // Segerakkan sesi tersimpan (localStorage) dengan rekod sebenar dalam Google Sheet,
+        // supaya sesi lama/rosak/dipadam tidak terus dipaparkan sebagai data semasa.
+        async function syncCurrentUserProfile() {
+            if (!currentUser || !currentUser.Username) return;
+            try {
+                const res = await fetch(`${API_URL}?sheet=LecturerList`);
+                const list = await res.json();
+                if (!Array.isArray(list)) return;
+
+                const fresh = list.find(u => String(u.Username || '').trim().toLowerCase() === String(currentUser.Username).trim().toLowerCase());
+
+                if (!fresh) {
+                    // Akaun tersimpan dalam sesi tidak lagi wujud dalam sistem - paksa log keluar.
+                    showCustomToast("Sesi anda tidak lagi sah. Sila log masuk semula.", "error");
+                    logout();
+                    return;
+                }
+
+                currentUser = { ...currentUser, ...fresh };
+                localStorage.setItem('f_user', JSON.stringify(currentUser));
+                renderProfile(currentUser);
+
+                const isPrivileged = currentUser.Role === 'Admin' || String(currentUser.Username).toLowerCase() === 'auditor';
+                document.getElementById('btn-manage-users').classList.toggle('hidden', !isPrivileged);
+                document.getElementById('lecturer-filter-container').classList.toggle('hidden', !isPrivileged);
+            } catch (err) {
+                console.error("Gagal menyegerakkan profil:", err);
+            }
+        }
 
         // 1. TUKAR ANTARA TAB LOG MASUK & DAFTAR BAHARU
         function switchAuthMode(mode) {
